@@ -1,0 +1,188 @@
+/* Services Section */
+.services-section {
+    padding: 4rem 0;
+  }
+  
+  .services-title {
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-align: center;
+    font-size: 2.5rem;
+  }
+  
+  @media (max-width: 600px) {
+    .services-title {
+      font-size: 2rem;
+    }
+  }
+  
+  .services-subtitle {
+    margin-bottom: 4rem !important;
+    text-align: center;
+    color: #666;
+    max-width: 42rem;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 600px) {
+    .services-subtitle {
+      font-size: 1rem;
+    }
+  }
+  
+  .services-grid-container {
+    margin-top: 3rem;
+    position: relative;
+  }
+  
+  /* Start Service Card Styles */
+  .start-service-card {
+    position: relative;
+    overflow: visible !important; 
+    border-radius: 0.75rem !important;
+    box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+  }
+  
+  .start-service-card-icon {
+    position: absolute;
+    top: -1.5rem; 
+    left: 70%;
+    transform: translateX(-50%);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    top: -1.75rem;
+    right: 1.563rem;
+    color: white;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; /* Keep it above the card’s content */
+  }
+  
+  
+  .start-service-card:hover {
+    transform: translateY(-0.625rem);
+    box-shadow: 0 0.938rem 2.188rem rgba(0, 0, 0, 0.12);
+  }
+  
+  .start-service-card-accent {
+    height: 0.5rem;
+    width: 100%;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+    /* Background gradient to be applied inline using service.color */
+  }
+
+  
+  .start-service-card-content {
+    padding: 1.5rem;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .start-service-card-header {
+    flex-direction: column;
+  }
+  
+  .start-service-card-chip {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    border: none;
+    /* Background and text colors to be applied inline via service.color */
+  }
+  
+  .start-service-card-title {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+  }
+  
+  .start-service-card-description {
+    color: #666;
+  }
+  
+  .start-service-card-offerings-title {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.031rem;
+    /* Color to be set inline using service.color */
+  }
+  
+  .start-service-card-bullet-points {
+    margin-bottom: 1.5rem;
+    flex: 1;
+    min-height: 15.625rem;
+  }
+  
+  .start-service-card-bullet-point {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .start-service-card-bullet-point:hover {
+    background-color: rgba(37, 143, 131, 0.1);
+  }
+  
+  .start-service-card-bullet-icon {
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
+    margin-top: 0.188rem;
+    min-width: 1.2rem;
+  }
+  
+  .start-service-card-button-container {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  
+  .start-service-card-button {
+    font-weight: 500;
+    border-radius: 0.5rem;
+  }
+  
+  .start-service-card-button:hover {
+    background-color: rgba(37, 143, 131, 0.1);
+  }
+  
+  .start-service-card-button:hover .MuiButton-endIcon {
+    transform: translateX(0.25rem);
+  }
+  
+  .start-service-card-button .MuiButton-endIcon {
+    transition: transform 0.3s ease;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 48rem) {
+    .start-service-card-header {
+      height: auto;
+      min-height: 8rem;
+    }
+    
+    .start-service-card-bullet-points {
+      min-height: auto;
+    }
+  }
+  
+  @media (max-width: 36rem) {
+    .services-section {
+      padding: 2.5rem 0;
+    }
+  }
+  

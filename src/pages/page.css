@@ -1,0 +1,248 @@
+/* Define theme colors and spacing using CSS variables */
+:root {
+    --primary-color: #9BD6D3;
+    --secondary-color: #ffffff;
+    --dark-color: #6C6D71;
+    --medium-dark-color: #818286;
+    --spacing-unit: 1vw;
+  }
+  
+  /* Overall Page Layout */
+  .home-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+  }
+  
+  /* HERO SECTION */
+  .hero-section {
+    padding: calc(3 * var(--spacing-unit)) 0;
+  }
+  
+  .hero-grid {
+    align-items: center;
+  }
+  
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--spacing-unit);
+  }
+  
+
+  button {
+    padding: 0.6rem 1.5rem !important;
+    text-transform: none !important;
+    border-radius: 6px !important;
+    /* background-color: #00B2B2;
+    color: #fff !important; */
+  }
+
+   button.contained {
+    background-color: #00B2B2;
+    color: #fff !important;
+  }
+
+   button.outlined {
+    background-color: transparent;
+    color: #00B2B2 !important;
+    border: 1px solid #00B2B2 !important;
+  }
+
+
+  .hero-title {
+    font-size: 4vw;
+    font-weight: bold;
+  }
+  
+  .hero-description {
+    font-size: 1.5vw;
+    color: var(--medium-dark-color);
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: var(--spacing-unit);
+  }
+  
+  .hero-btn {
+    font-size: 1.2vw;
+  }
+  
+  .hero-image-container {
+    display: none;
+  }
+  
+  @media (min-width: 992px) {
+    .hero-image-container {
+      display: block;
+    }
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: auto;
+    border-radius: 1vw;
+    object-fit: cover;
+  }
+  
+  /* SECTION HEADER */
+  .section-header {
+    margin-bottom: calc(2 * var(--spacing-unit));
+  }
+  
+  .section-title {
+    font-size: 3vw;
+    font-weight: bold;
+  }
+  
+  .section-subtitle {
+    font-size: 1.5vw;
+  }
+  
+  /* SERVICES SECTION */
+  .services-section {
+    padding: calc(4 * var(--spacing-unit)) 0;
+  }
+  
+  .services-grid {
+    margin-top: calc(2 * var(--spacing-unit));
+  }
+  
+  .service-card {
+    transition: all 0.3s ease;
+  }
+  
+  .service-card:hover {
+    box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2);
+  }
+  
+  .service-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-unit);
+    padding: var(--spacing-unit) 0;
+  }
+  
+  .service-icon {
+    font-size: 3vw;
+    color: var(--primary-color);
+  }
+  
+  .service-title {
+    font-size: 1.8vw;
+    font-weight: bold;
+  }
+  
+  .service-card-content {
+    text-align: center;
+  }
+  
+  .service-description {
+    font-size: 1.2vw;
+    color: var(--medium-dark-color);
+  }
+  
+  /* HIGHLIGHTS SECTION */
+  .highlights-section {
+    padding: calc(4 * var(--spacing-unit)) 0;
+  }
+  
+  .highlights-grid {
+    margin-top: calc(2 * var(--spacing-unit));
+  }
+  
+  .highlight-link {
+    text-decoration: none;
+  }
+  
+  .highlight-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1vw;
+    transition: transform 0.3s ease;
+  }
+  
+  .highlight-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .highlight-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .highlight-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--spacing-unit);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  }
+  
+  .highlight-title {
+    font-size: 1.5vw;
+    font-weight: bold;
+  }
+  
+  .highlight-description {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1vw;
+  }
+  
+  /* PARTNERS SECTION */
+  .partners-section {
+    background-color: var(--secondary-color);
+    padding: calc(4 * var(--spacing-unit)) 0;
+  }
+  
+  .partners-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-unit);
+    margin-top: calc(2 * var(--spacing-unit));
+  }
+  
+  
+  /* RESPONSIVE ADJUSTMENTS */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 6vw;
+    }
+    .hero-description {
+      font-size: 3vw;
+    }
+    .section-title {
+      font-size: 5vw;
+    }
+    .section-subtitle {
+      font-size: 3vw;
+    }
+    .service-icon {
+      font-size: 6vw;
+    }
+    .service-title {
+      font-size: 3vw;
+    }
+    .service-description {
+      font-size: 2.5vw;
+    }
+    .highlight-title {
+      font-size: 4vw;
+    }
+    .highlight-description {
+      font-size: 3vw;
+    }
+  }
+  

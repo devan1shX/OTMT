@@ -1,0 +1,381 @@
+/* Base styles */
+.site-header {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  box-shadow: 0 2px 10px rgba(0, 178, 178, 0.15) !important; /* Teal shadow */
+  transition: all 0.3s ease;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 1000 !important;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0 !important;
+  min-height: 70px !important;
+}
+
+/* Logo styles */
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+}
+
+.logo {
+  height: auto;
+  max-height: 100px;
+  max-width: 250px;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0); /* Force GPU acceleration */
+  backface-visibility: hidden; /* Prevent blurry text during animations */
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Add a media query for smaller screens */
+@media (max-width: 768px) {
+  .logo {
+    max-height: 150px;
+    max-width: 200px;
+  }
+}
+
+/* Add padding to body to prevent content from hiding behind fixed header */
+body {
+  padding-top: 70px;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px;
+  }
+}
+
+/* Desktop menu styles */
+.desktop-menu {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.menu-item {
+  position: relative;
+  margin: 0 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.nav-button {
+  color: #333333 !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  padding: 0.5rem 0.75rem !important;
+  min-width: auto !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Modified hover style to use teal color on hover */
+.nav-button:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important; 
+  color: #00B2B2 !important; /* Change to teal on hover */
+}
+
+.contact-button {
+  background-color: #00B2B2 !important; /* Teal background */
+  color: white !important;
+  border-radius: 24px !important;
+  padding: 0.5rem 1.5rem !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  margin-left: 1rem !important;
+  box-shadow: 0 2px 8px rgba(0, 178, 178, 0.3) !important; /* Teal shadow */
+}
+
+.contact-button:hover {
+  background-color: #009494 !important; /* Darker teal on hover */
+  box-shadow: 0 4px 12px rgba(0, 178, 178, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+/* Dropdown styles */
+.menu-popper,
+.submenu-popper {
+  z-index: 1300;
+}
+
+.dropdown-paper,
+.submenu-paper {
+  margin-top: 0.5rem;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 178, 178, 0.15) !important; /* Teal shadow */
+  overflow: hidden;
+  min-width: 200px;
+  /* border-top: 2px solid #00B2B2 !important; */
+}
+
+.submenu-paper {
+  margin-left: 0.5rem;
+}
+
+.dropdown-container,
+.submenu-container {
+  padding: 0.5rem 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.dropdown-container::-webkit-scrollbar,
+.submenu-container::-webkit-scrollbar {
+  display: none;
+}
+
+.dropdown-item {
+  width: 100%;
+  position: relative;
+}
+
+.dropdown-button,
+.submenu-button {
+  width: 100%;
+  justify-content: flex-start !important;
+  padding: 0.75rem 1rem !important;
+  text-transform: none !important;
+  color: #333333 !important;
+  font-weight: 400 !important;
+  transition: all 0.2s ease !important;
+  text-align: left !important;
+}
+
+/* Modified hover style to use teal color on hover */
+.dropdown-button:hover,
+.submenu-button:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  color: #00B2B2 !important; /* Change to teal on hover */
+}
+
+/* Improved mobile drawer animation */
+.mobile-drawer .MuiDrawer-paper {
+  width: 280px;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-right: 3px solid #00B2B2; /* Teal border */
+  border-radius: 0 20px 20px 0; /* Add curved right edge */
+  transform: translateX(-100%); /* Start position off-screen */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important; /* Smoother easing */
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+/* When drawer is open, smoother animation */
+.mobile-drawer.MuiDrawer-root .MuiDrawer-paper[style*="visibility: visible"] {
+  transform: translateX(0); /* End position on-screen */
+}
+
+.mobile-drawer .MuiDrawer-paper::-webkit-scrollbar {
+  display: none;
+}
+
+.drawer-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.drawer-container::-webkit-scrollbar {
+  display: none;
+}
+
+.drawer-header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 178, 178, 0.15); /* Teal border */
+  background-color: rgba(0, 178, 178, 0.03); /* Very light teal background */
+}
+
+.drawer-logo {
+  height: auto;
+  max-height: 70px;
+  max-width: 230px;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.drawer-list {
+  padding: 1rem 0;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.drawer-list::-webkit-scrollbar {
+  display: none;
+}
+
+.drawer-list-item {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+.drawer-list-item:hover {
+  background-color: rgba(0, 178, 178, 0.08) !important; /* Teal hover background */
+  color: #00B2B2 !important; /* Teal hover text color */
+}
+
+.drawer-list-item .MuiListItemText-primary {
+  color: #333333;
+  transition: color 0.2s ease;
+}
+
+.drawer-list-item:hover .MuiListItemText-primary {
+  color: #00B2B2; /* Teal hover text color */
+}
+
+.drawer-nested-item {
+  padding-left: 2.5rem !important;
+  padding-right: 1.5rem !important;
+  background-color: rgba(0, 178, 178, 0.03); /* Very light teal background */
+}
+
+.drawer-nested-item:hover {
+  background-color: rgba(0, 178, 178, 0.08) !important; /* Teal hover background */
+  color: #00B2B2 !important; /* Teal hover text color */
+}
+
+.drawer-nested-item:hover .MuiListItemText-primary {
+  color: #00B2B2; /* Teal hover text color */
+}
+
+.drawer-sub-nested-item {
+  padding-left: 3.5rem !important;
+  padding-right: 1.5rem !important;
+  background-color: rgba(0, 178, 178, 0.05); /* Light teal background */
+}
+
+.drawer-sub-nested-item:hover {
+  background-color: rgba(0, 178, 178, 0.1) !important; /* Teal hover background */
+  color: #00B2B2 !important; /* Teal hover text color */
+}
+
+.drawer-sub-nested-item:hover .MuiListItemText-primary {
+  color: #00B2B2; /* Teal hover text color */
+}
+
+.drawer-contact-button {
+  padding: 1rem 1.5rem !important;
+  margin-top: 1rem;
+}
+
+.drawer-contact-button .MuiButton-containedPrimary {
+  background-color: #00B2B2 !important; /* Teal background */
+  color: white !important;
+}
+
+.drawer-contact-button .MuiButton-containedPrimary:hover {
+  background-color: #009494 !important; /* Darker teal on hover */
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-paper,
+.submenu-paper {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Prevent scrollbars */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Prevent scrolling when drawer is open */
+.no-scroll {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+/* Active state for menu items */
+.nav-button.active {
+  color: #00B2B2 !important; /* Teal text for active state */
+}
+
+.dropdown-button.active,
+.submenu-button.active {
+  color: #00B2B2 !important; /* Teal text for active state */
+  background-color: rgba(0, 178, 178, 0.08) !important; /* Light teal background */
+}
+
+/* Remove the underline on active menu items */
+.menu-item.active::after {
+  display: none; /* This will prevent the underline from showing */
+}
+
+@keyframes smoothFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-popper, .submenu-popper {
+  z-index: 1301 !important;
+}
+
+.dropdown-paper, .submenu-paper {
+  animation: smoothFadeIn 0.2s ease-out;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.nav-button, .dropdown-button, .submenu-button {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.menu-item {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+@media (max-width: 960px) {
+  /* For nested submenus in mobile drawer */
+  .mobile-drawer .drawer-list .drawer-nested-item .MuiListItemText-root,
+  .mobile-drawer .drawer-list .drawer-sub-nested-item .MuiListItemText-root,
+  .mobile-drawer .drawer-list .drawer-nested-item a,
+  .mobile-drawer .drawer-list .drawer-sub-nested-item a {
+    color: #000 !important;
+  }
+}

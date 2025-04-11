@@ -1,0 +1,185 @@
+/* Overall Page Container */
+.collaborate-page {
+  /* Remove default background so hero sections can stand out */
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Hero Sections (Top & Bottom) - similar to Events layout */
+.hero-section {
+  min-height: 50vh; /* or whatever height you prefer */
+  display: flex;
+  align-items: center; /* vertically center content */
+  padding: 3rem 0;
+}
+
+/* Top Hero - left-aligned text */
+.top-hero {
+  background-color: #f8f7ff; /* Light background for top hero */
+  text-align: left;          /* Title is left-most */
+}
+
+/* Bottom Hero - can have same or different background color */
+.bottom-hero {
+  background-color: #f8f7ff;
+  text-align: center; /* center the bottom content if desired */
+  margin-top: 2rem;   /* space above bottom hero */
+}
+
+/* Main Title with colored underline emphasis */
+.main-title {
+  position: relative;
+  display: inline-block; /* so the underline can fit the text width */
+  font-size: clamp(2rem, 5vw, 2.5rem) !important;
+  font-weight: 700 !important;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem !important;
+  line-height: 1.2 !important;
+}
+
+/* 
+   Use a pseudo-element to create a colored box behind the text, 
+   resembling an underline highlight.
+*/
+.main-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.1rem;
+  width: 100%;
+  height: 0.25em; /* thickness of the underline box */
+  background-color: #3b82f6; /* pick your highlight color */
+  z-index: -1;
+}
+
+/* Subtitle text below main title */
+.subtitle {
+  color: #666666;
+  font-size: clamp(1rem, 2vw, 1.1rem) !important;
+  line-height: 1.6 !important;
+  max-width: 42rem;
+  margin-top: 1rem;
+}
+
+/* Cards Grid Section */
+.cards-grid {
+  margin: 3rem 0;
+}
+
+/* Collaboration Cards */
+.collab-card {
+  height: 100%;
+  padding: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  border-radius: 12px !important;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.collab-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Icon Box in Each Card */
+.card-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.bottom-hero{
+    margin-bottom: 0px !important;
+}
+.card-icon svg {
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Card Title & Description */
+.card-title {
+  font-size: clamp(1.1rem, 2vw, 1.25rem) !important;
+  font-weight: 600 !important;
+  color: #1a1a1a;
+  line-height: 1.4 !important;
+}
+
+.card-description {
+  color: #666666;
+  line-height: 1.6 !important;
+  flex-grow: 1;
+}
+
+
+.submit-button:hover {
+  opacity: 0.9;
+}
+
+
+.help-icon {
+  color: white;
+  font-size: 2rem !important;
+}
+
+.bottom-title {
+  font-size: clamp(1.5rem, 3vw, 2rem) !important;
+  font-weight: 600 !important;
+  color: #1a1a1a;
+  margin-bottom: 1rem !important;
+}
+
+.bottom-description {
+  color: #666666;
+  max-width: 36rem;
+  margin: 0 auto 2rem !important;
+}
+
+.bottom-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Bottom Hero Buttons */
+.schedule-button {
+  background:  #00B2B2 !important;
+  color: white !important;
+  text-transform: none !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 6px !important;
+}
+
+.stories-button {
+  color:  #00B2B2 !important;
+  border-color:  #00B2B2 !important;
+  text-transform: none !important;
+  padding: 0.75rem 1.5rem !important;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 600px) {
+  .hero-section {
+    padding: 2rem 1rem;
+    min-height: 50vh; /* if you prefer shorter on mobile */
+  }
+
+  .cards-grid {
+    margin: 2rem 0;
+  }
+
+  .bottom-buttons {
+    flex-direction: column;
+  }
+
+  .bottom-buttons button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,170 @@
+/* ===============================
+   HeroSection Styles
+   =============================== */
+   .hero-section {
+    position: relative;
+  }
+  
+  .hero-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: '#F5F5F5';
+    opacity: 0.1;
+  }
+  
+  .hero-content {
+    position: relative;
+    padding: 3rem 0;
+  }
+  
+  .hero-text-container {
+    max-width: 64rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-underline {
+    height: 0.25rem;
+    width: 8rem;
+    background: linear-gradient(to right, #8b5cf6, #20b2aa);
+  }
+  
+  @media (min-width: 600px) {
+    .hero-title {
+      font-size: 3rem;
+    }
+  }
+  
+  @media (min-width: 960px) {
+    .hero-content {
+      padding: 6rem 0;
+    }
+  }
+  
+  /* ===============================
+     ContactInfo Styles
+     =============================== */
+  .contact-info-card {
+    background: linear-gradient(to bottom, #fff, rgba(241, 245, 249, 0.2));
+    padding: 1.5rem;
+    height: 100%;
+  }
+  
+  .contact-info-title {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .contact-info-item {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .contact-icon {
+    color: #8b5cf6;
+    margin-top: 0.2rem;
+  }
+  
+  .contact-info-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-info-label {
+    font-weight: 500;
+  }
+  
+  .contact-info-text {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 0.875rem;
+  }
+  
+  .contact-info-link {
+    text-decoration: none;
+  }
+  
+  .contact-info-link:hover .contact-info-text {
+    color: #8b5cf6;
+  }
+  
+  /* ===============================
+     MapSection Styles
+     =============================== */
+  .map-card {
+    height: 100%;
+  }
+  
+  .map-container {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+  }
+  
+  /* ===============================
+     ContactForm Styles
+     =============================== */
+  .form-card {
+    margin-top: 1rem;
+  }
+  
+  .form-container {
+    padding: 1.5rem;
+  }
+  
+  .form-title {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-form {
+    width: 100%;
+  }
+  
+  .submit-button {
+    background: linear-gradient(to right, #8b5cf6, #20b2aa);
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    transition: transform 0.2s;
+    text-transform: none;
+  }
+  
+  .submit-button:hover {
+    background: linear-gradient(to right, #8b5cf6, #20b2aa);
+    transform: scale(1.05);
+  }
+  
+  @media (min-width: 960px) {
+    .submit-button {
+      width: auto;
+    }
+  }
+  
+  /* ===============================
+     ContactPage Styles
+     =============================== */
+  .contact-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-container {
+    padding-bottom: 3rem;
+  }
+  
+  @media (min-width: 960px) {
+    .contact-container {
+      padding-bottom: 4rem;
+    }
+  }
