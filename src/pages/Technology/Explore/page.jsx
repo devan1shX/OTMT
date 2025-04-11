@@ -379,7 +379,7 @@ export default function ExploreTechnologiesPage() {
   const rowsPerPage = 8;
 
   useEffect(() => {
-    fetch("http://localhost:4000/technologies")
+    fetch("http://192.168.1.148:4000/technologies")
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched data:", data);

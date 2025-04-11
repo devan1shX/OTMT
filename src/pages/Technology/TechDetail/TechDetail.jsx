@@ -339,7 +339,7 @@ const LoadingState = () => (
   </Container>
 );
 
-const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = "http://192.168.1.148:5001";
 
 // Main TechDetail Component
 function TechDetail() {
@@ -359,7 +359,7 @@ function TechDetail() {
   useEffect(() => {
     const fetchTechDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/technologies/${id}`);
+        const res = await fetch(`http://192.168.1.148:4000/technologies/${id}`);
         if (!res.ok) {
           throw new Error("Technology not found");
         }

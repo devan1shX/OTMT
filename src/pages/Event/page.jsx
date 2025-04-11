@@ -24,7 +24,7 @@ function EventsPage() {
   const [showMorePast, setShowMorePast] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:4000/events")
+    fetch("http://192.168.1.148:4000/events")
       .then((res) => res.json())
       .then((data) => {
         // Sort events: upcoming first by date, then past by date descending
