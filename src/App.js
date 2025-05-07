@@ -49,7 +49,7 @@ function App() {
 
           {/* Technology routes */}
           <Route path="/Our_Research" element={<OurResearchPage />} />
-          <Route path="/Our_Technology" element={<OurTechPage />} />
+          <Route path="/Our_Technology" element={<ExploreTechnologiesPage />} />
           <Route path="/Explore_Technologies" element={<ExploreTechnologiesPage />} />
           <Route path="/tech/:id" element={<TechDetail />} />
         </Routes>

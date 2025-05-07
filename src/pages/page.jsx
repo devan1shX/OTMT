@@ -1042,28 +1042,28 @@ const highlights = [
     description:
       "Comprehensive innovation support services for researchers and entrepreneurs.",
     image: logo1,
-    href: "https://drive.google.com/file/d/1cDowOipntOSaj9aDAz0pYitWZNxx-vP5/view?usp=drive_link",
+    href: "https://drive.google.com/file/d/1o8SKxArQ_jq7HHqg2AID01OIwAAftlIt/view?usp=sharing",
   },
   {
     title: "Cloud Labs",
     description:
       "Advanced cloud computing solutions enabling cutting-edge research capabilities.",
     image: logo2,
-    href: "https://drive.google.com/file/d/1SPj4pEMx-EL9UE9Ewq0WBgJYJZRnmSDW/view?usp=drive_link",
+    href: "https://drive.google.com/file/d/1ygKZqMQQHMa0CaD-kw20qZm0z_H3ZmhV/view?usp=sharing",
   },
   {
     title: "TATDC",
     description:
       "Collaborative research platform connecting academia and industry for breakthrough innovations.",
     image: logo3,
-    href: "https://drive.google.com/file/d/1IFsonCKL97-Jj5z6nhYClo0KZ7voor2u/view?usp=drive_link",
+    href: "https://drive.google.com/file/d/1DO4wGXTb67gULeyBPT4BtdxRLKwbPo-A/view?usp=sharing",
   },
   {
     title: "FOODLE",
     description:
       "Revolutionary food technology innovation addressing global sustainability challenges.",
     image: logo4,
-    href: "https://drive.google.com/file/d/1hUGQxsn0q_4Mt_E8dsfDCyWB1lMwf4_D/view?usp=drive_link",
+    href: "https://drive.google.com/file/d/1rw_U4yltCKq3lCRlrskXp4PM_WL39DFH/view?usp=sharing",
   },
 ];
 

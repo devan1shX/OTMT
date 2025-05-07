@@ -24,7 +24,7 @@ const GenreSidebar = ({ handleGenreChange }) => {
       sx={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-        gap: 2,
+        gap: 2, mb: 5
       }}
     >
       {Object.keys(genreImages).map((genre) => (

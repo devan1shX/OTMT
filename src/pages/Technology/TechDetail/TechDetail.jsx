@@ -176,7 +176,8 @@ const InnovatorsSection = ({ tech }) => {
             <ListItemButton
               key={index}
               component="a"
-              href={innovator.mail ? `mailto:${innovator.mail}` : "#"}
+              // href is now always "#" as we are not using mailto links
+              href="#"
               sx={{
                 width: "100%",
                 border: "1px solid",
@@ -186,10 +187,14 @@ const InnovatorsSection = ({ tech }) => {
                 transition: "all 0.2s",
                 "&:hover": {
                   borderColor: "primary.main",
-                  bgcolor: "rgba(42, 157, 143, 0.05)",
+                  bgcolor: "rgba(42, 157, 143, 0.05)", // Assuming this color is from your theme or a specific value
                   transform: "translateY(-2px)",
                   boxShadow: 1,
                 },
+                // If it's not meant to be interactive without the mail link,
+                // you might consider removing component="a" and href,
+                // or changing hover styles if it's no longer a link.
+                // For now, keeping it as a non-navigating link.
               }}
             >
               <ListItemAvatar>
@@ -199,21 +204,8 @@ const InnovatorsSection = ({ tech }) => {
               </ListItemAvatar>
               <ListItemText
                 primary={innovator.name || "Unknown Innovator"}
-                secondary={
-                  innovator.mail ? (
-                    <Box
-                      sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
-                    >
-                      <EmailIcon fontSize="small" color="action" />
-                      <Typography
-                        variant="body2"
-                        sx={{ color: "text.secondary" }}
-                      >
-                        {innovator.mail}
-                      </Typography>
-                    </Box>
-                  ) : null
-                }
+                // Secondary text (email) is now removed
+                secondary={null}
               />
             </ListItemButton>
           ))}

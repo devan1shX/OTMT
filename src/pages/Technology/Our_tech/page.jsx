@@ -74,13 +74,6 @@ const faqItems = [
 
 
 
-/* 
-  TechList Component:
-  - Filters the list of technologies based on search text, TRL level, innovators, and selected genres.
-  - Paginates the filtered list.
-  - Renders a list of TechCard components with animations.
-*/
-
 
 const TechnologyPage = () => {
 
@@ -172,40 +165,13 @@ const TechnologyPage = () => {
                 Schedule a Meeting
               </Button>
               </a>
-              {/* <a href="../Our_Technologies" target="_blank" rel="noreferrer">
-              <Button variant="outlined" className=" browse-button">
-                Browse Past Success Stories
-              </Button>
-              </a> */}
+              
             </Box>
           </Box>
         </Container>
       </Box>
 
-      {/* FAQ Section
-      <Container className="faq-section">
-        <Typography variant="h2" className="faq-title">
-          Frequently Asked Questions
-        </Typography>
-        <Box className="faq-container">
-          {faqItems.map((item, index) => (
-            <Accordion key={index} className="faq-accordion">
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls={`panel${index}-content`}
-                id={`panel${index}-header`}
-              >
-                <Typography variant="h6" className="faq-question">
-                  {item.question}
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography className="faq-answer">{item.answer}</Typography>
-              </AccordionDetails>
-            </Accordion>
-          ))}
-        </Box>
-      </Container> */}
+      
     </div>
   );
 };

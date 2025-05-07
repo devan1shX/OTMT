@@ -29,7 +29,7 @@ const Spotlight = ({ tech }) => {
 
   const colors = getColorScheme(tech.category);
   
-  // Map TRL to descriptions
+  // Map TRL to descriptions - This function remains but won't be used for the hover text directly
   const getTrlLabel = (trl) => {
     const labels = {
       1: "Basic Principles",
@@ -42,7 +42,7 @@ const Spotlight = ({ tech }) => {
       8: "Complete & Qualified",
       9: "Operational System"
     };
-    return labels[trl] || `TRL ${trl}`;
+    return labels[trl] || `TRL ${trl}`; // Fallback, though not strictly needed for the new hover
   };
 
   return (
@@ -131,17 +131,22 @@ const Spotlight = ({ tech }) => {
             >
               TRL{tech.trl}
             </Typography>
-            <Typography 
-              sx={{ 
-                fontSize: isMobile ? "12px" : "14px", 
-                fontWeight: 600, 
-                color: colors.primary,
-                opacity: 0.6,
-                mt: 1
-              }}
-            >
-              {getTrlLabel(tech.trl)}
-            </Typography>
+            {/* The following Typography component that showed the TRL description has been removed.
+              This ensures that on hover, only "TRL{number}" is displayed from the Typography above.
+
+              Previously, it was:
+              <Typography 
+                sx={{ 
+                  fontSize: isMobile ? "12px" : "14px", 
+                  fontWeight: 600, 
+                  color: colors.primary,
+                  opacity: 0.6,
+                  mt: 1
+                }}
+              >
+                {getTrlLabel(tech.trl)}
+              </Typography>
+            */}
           </Box>
         )}
 
