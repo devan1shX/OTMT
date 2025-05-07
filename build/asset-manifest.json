@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.24fbd551.css",
-    "main.js": "/static/js/main.7a9518a8.js",
+    "main.js": "/static/js/main.7830e5fa.js",
     "static/media/ArtificalIntelligence.jpg": "/static/media/ArtificalIntelligence.6b00183d58fe4fe40149.jpg",
     "static/media/logo_3.jpg": "/static/media/logo_3.cff471940cd7c4db7186.jpg",
     "static/media/cloudComputing.jpg": "/static/media/cloudComputing.b7bf0aef304a0f7a197f.jpg",
@@ -21,10 +21,10 @@
     "static/media/coe_logo.png": "/static/media/coe_logo.c996fbc592bd0022c9f5.png",
     "index.html": "/index.html",
     "main.24fbd551.css.map": "/static/css/main.24fbd551.css.map",
-    "main.7a9518a8.js.map": "/static/js/main.7a9518a8.js.map"
+    "main.7830e5fa.js.map": "/static/js/main.7830e5fa.js.map"
   },
   "entrypoints": [
     "static/css/main.24fbd551.css",
-    "static/js/main.7a9518a8.js"
+    "static/js/main.7830e5fa.js"
   ]
 }
