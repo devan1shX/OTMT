@@ -1042,21 +1042,21 @@ const highlights = [
     description:
       "Comprehensive innovation support services for researchers and entrepreneurs.",
     image: logo1,
-    href: "https://drive.google.com/file/d/1o8SKxArQ_jq7HHqg2AID01OIwAAftlIt/view?usp=sharing",
+    href: "https://drive.google.com/file/d/1briCYZcdT_dwYRQ_hFJSSPafmiTnbnWD/view?usp=sharing",
   },
   {
     title: "Cloud Labs",
     description:
       "Advanced cloud computing solutions enabling cutting-edge research capabilities.",
     image: logo2,
-    href: "https://drive.google.com/file/d/1ygKZqMQQHMa0CaD-kw20qZm0z_H3ZmhV/view?usp=sharing",
+    href: "https://drive.google.com/file/d/1JC1p6UfpAXFyCdsbVVsgrvvV_i4IfQBt/view?usp=sharing",
   },
   {
     title: "TATDC",
     description:
       "Collaborative research platform connecting academia and industry for breakthrough innovations.",
     image: logo3,
-    href: "https://drive.google.com/file/d/1DO4wGXTb67gULeyBPT4BtdxRLKwbPo-A/view?usp=sharing",
+    href: "https://drive.google.com/file/d/1XqZfTKncONaHq90MPl6Iod2_exsOqFZy/view?usp=sharing",
   },
   {
     title: "FOODLE",
