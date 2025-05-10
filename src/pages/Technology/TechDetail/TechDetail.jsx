@@ -351,7 +351,7 @@ function TechDetail() {
   useEffect(() => {
     const fetchTechDetails = async () => {
       try {
-        const res = await fetch(`http://192.168.1.148:4000/technologies/${id}`);
+        const res = await fetch(`https://192.168.1.148:4000/technologies/${id}`);
         if (!res.ok) {
           throw new Error("Technology not found");
         }
