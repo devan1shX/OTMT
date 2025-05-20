@@ -284,8 +284,8 @@ const LoadingState = () => (
   </Container>
 );
 
-const API_BASE_URL = "http://192.168.1.148:5001"; // For file serving (images, brochures)
-const DATA_API_BASE_URL = "http://192.168.1.148:4000"; // For fetching main tech data
+const API_BASE_URL = "https://192.168.1.148:5001";
+const DATA_API_BASE_URL = "https://192.168.1.148:4000";
 
 function TechDetail() {
   const { id } = useParams();
