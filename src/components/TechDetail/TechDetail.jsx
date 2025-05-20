@@ -247,7 +247,7 @@ export default function TechDetail() {
     if (tech) {
       const fetchRelatedTechs = async () => {
         try {
-          const url = new URL("http://192.168.1.148:4000/technologies");
+          const url = new URL("https://192.168.1.148:4000/technologies");
           url.searchParams.set("genres", tech.genre);
           url.searchParams.set("limit", 5);
           
