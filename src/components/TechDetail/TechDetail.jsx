@@ -225,7 +225,7 @@ export default function TechDetail() {
   useEffect(() => {
     const fetchTechDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/technologies/${id}`);
+        const res = await fetch(`http://192.168.1.148:4000/technologies/${id}`);
         if (!res.ok) {
           throw new Error("Technology not found");
         }
@@ -247,7 +247,7 @@ export default function TechDetail() {
     if (tech) {
       const fetchRelatedTechs = async () => {
         try {
-          const url = new URL("http://localhost:4000/technologies");
+          const url = new URL("http://192.168.1.148:4000/technologies");
           url.searchParams.set("genres", tech.genre);
           url.searchParams.set("limit", 5);
           
