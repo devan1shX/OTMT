@@ -26,7 +26,7 @@ import {
 } from "@mui/material";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { Search, FilterList, LocationOn, School } from "@mui/icons-material";
+import { Search, FilterList, LocationOn, School, Apps as ViewAllIcon } from "@mui/icons-material";
 import {
   Link as RouterLink,
   useLocation,
@@ -102,7 +102,7 @@ const TechCard = ({ tech }) => {
                 top: 0,
                 left: 0,
                 height: "100%",
-                width: "100%",
+                width: tech.trl ? `${100}%` : "0%", // Dynamic width based on TRL
                 background: trlColor.main,
                 borderTopRightRadius: "4px",
                 borderBottomRightRadius: "4px",
@@ -123,34 +123,35 @@ const TechCard = ({ tech }) => {
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
+                alignItems: "flex-start",
                 mb: 2,
               }}
             >
-              <Box sx={{ display: "flex", gap: 1, maxWidth: "100%" }}>
-  {tech.docket && (
-    <Chip
-      label={tech.docket}
-      size="small"
-      sx={{
-        height: "22px",
-        fontSize: "0.7rem",
-        fontWeight: 500,
-        bgcolor: "rgba(0,0,0,0.04)",
-        color: "text.secondary",
-        maxWidth: "100%",
-        "& .MuiChip-label": {
-          px: 1,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-        },
-      }}
-    />
-  )}
-</Box>
+              <Box sx={{ display: "flex", gap: 1, maxWidth: "calc(100% - 70px)", flexWrap: "wrap" }}>
+                {tech.docket && (
+                  <Chip
+                    label={tech.docket}
+                    size="small"
+                    sx={{
+                      height: "22px",
+                      fontSize: "0.7rem",
+                      fontWeight: 500,
+                      bgcolor: "rgba(0,0,0,0.04)",
+                      color: "text.secondary",
+                      maxWidth: "100%", 
+                      "& .MuiChip-label": {
+                        px: 1,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      },
+                    }}
+                  />
+                )}
+              </Box>
 
               <Chip
-                label={`TRL ${tech.trl}`}
+                label={`TRL ${tech.trl || 'N/A'}`}
                 size="small"
                 sx={{
                   height: "22px",
@@ -159,11 +160,11 @@ const TechCard = ({ tech }) => {
                   bgcolor: "rgba(0,0,0,0.04)",
                   color: "text.secondary",
                   "& .MuiChip-label": { px: 1 },
+                  flexShrink: 0, 
                 }}
               />
             </Box>
             
-            {/* Title */}
             <Typography
               variant="h6"
               sx={{
@@ -177,7 +178,6 @@ const TechCard = ({ tech }) => {
               {tech.name}
             </Typography>
             
-            {/* Description with clamp for consistent card height */}
             <Typography
               variant="body2"
               sx={{
@@ -194,17 +194,18 @@ const TechCard = ({ tech }) => {
               {tech.description}
             </Typography>
             
-            {/* Tags section */}
-            {tech.keywords && (
+            {tech.keywords && tech.keywords.length > 0 && (
               <Box
                 sx={{
                   display: "flex",
                   flexWrap: "wrap",
                   gap: 1,
                   mb: 2.5,
+                  maxHeight: '58px', 
+                  overflow: 'hidden',
                 }}
               >
-                {tech.keywords.slice(0, 3).map((keyword, idx) => (
+                {tech.keywords.slice(0, 5).map((keyword, idx) => ( 
                   <Chip
                     key={idx}
                     label={keyword}
@@ -220,7 +221,6 @@ const TechCard = ({ tech }) => {
               </Box>
             )}
             
-            {/* Info footer */}
             <Box
               sx={{
                 display: "flex",
@@ -229,6 +229,7 @@ const TechCard = ({ tech }) => {
                 pt: 2,
                 borderTop: "1px solid rgba(0,0,0,0.06)",
                 justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
               {tech.genre && (
@@ -241,31 +242,31 @@ const TechCard = ({ tech }) => {
                       fontSize: "1rem",
                     }}
                   />
-                  <Typography variant="caption" sx={{ fontWeight: 500 }}>
+                  <Typography variant="caption" sx={{ fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100px' }}> 
                     {Array.isArray(tech.genre) ? tech.genre[0] : tech.genre}
                   </Typography>
                 </Box>
               )}
               
               {tech.innovators && (
-  <Box sx={{ display: "flex", alignItems: "center" }}>
-    <Box
-      component={GroupsIcon}
-      sx={{
-        color: trlColor.main,
-        mr: 0.75,
-        fontSize: "1rem",
-      }}
-    />
-    <Typography variant="caption" sx={{ fontWeight: 500 }}>
-      {Array.isArray(tech.innovators) && tech.innovators.length > 0
-        ? tech.innovators.map(innovator => innovator.name).join(", ")
-        : typeof tech.innovators === 'string' 
-          ? tech.innovators 
-          : ""}
-    </Typography>
-  </Box>
-)}
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Box
+                    component={GroupsIcon}
+                    sx={{
+                      color: trlColor.main,
+                      mr: 0.75,
+                      fontSize: "1rem",
+                    }}
+                  />
+                  <Typography variant="caption" sx={{ fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '120px' }}> 
+                    {Array.isArray(tech.innovators) && tech.innovators.length > 0
+                      ? tech.innovators.map(innovator => innovator.name).join(", ")
+                      : typeof tech.innovators === 'string' 
+                        ? tech.innovators 
+                        : ""}
+                  </Typography>
+                </Box>
+              )}
             </Box>
           </Box>
         </Paper>
@@ -275,7 +276,6 @@ const TechCard = ({ tech }) => {
 };
 
 
-
 const TechList = ({
   technologies,
   search,
@@ -283,36 +283,50 @@ const TechList = ({
   rowsPerPage,
   selectedGenres,
   filterTRL,
-  filterInnovators,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const filteredTechs = useMemo(() => {
-    // Inside TechList component, within the useMemo callback
-return technologies.filter((tech) => {
-  const matchesSearch = tech.name.toLowerCase().includes(search.toLowerCase());
-  const matchesTRL =
-    filterTRL === "" ||
-    (tech.trl && Number(tech.trl) === Number(filterTRL));
-    
-  // Updated innovators filter to handle array of objects
-  const matchesInnovators =
-    filterInnovators === "" ||
-    (tech.innovators &&
-      (Array.isArray(tech.innovators)
-        ? tech.innovators.some(innovator => 
-            innovator.name.toLowerCase().includes(filterInnovators.toLowerCase()))
-        : typeof tech.innovators === 'string' && 
-          tech.innovators.name.toLowerCase().includes(filterInnovators.toLowerCase())
-      ));
-      
-  const matchesSelectedGenres =
-    selectedGenres.length === 0 || selectedGenres.includes(tech.genre);
+    const searchTerm = search.toLowerCase();
+    // If search, selectedGenres, and filterTRL are all empty, it means we want to show all technologies
+    // This is typically when "View All Technologies" button has cleared filters.
+    if (searchTerm === "" && selectedGenres.length === 0 && filterTRL === "") {
+        return technologies;
+    }
 
-  return matchesSearch && matchesTRL && matchesInnovators && matchesSelectedGenres;
-});
-  }, [technologies, search, selectedGenres, filterTRL, filterInnovators]);
+    return technologies.filter((tech) => {
+      const nameMatch = tech.name.toLowerCase().includes(searchTerm);
+      let innovatorMatch = false;
+      if (tech.innovators) {
+        if (Array.isArray(tech.innovators)) {
+          innovatorMatch = tech.innovators.some(innovator => 
+            innovator.name && innovator.name.toLowerCase().includes(searchTerm)
+          );
+        } else if (typeof tech.innovators === 'string') {
+          innovatorMatch = tech.innovators.toLowerCase().includes(searchTerm);
+        }
+      }
+      
+      const matchesSearchCriteria = searchTerm === "" || nameMatch || innovatorMatch;
+
+      const matchesTRL =
+        filterTRL === "" ||
+        (tech.trl && Number(tech.trl) === Number(filterTRL));
+        
+      const matchesSelectedGenres =
+        selectedGenres.length === 0 || 
+        (Array.isArray(tech.genre) 
+          ? tech.genre.some(g => selectedGenres.includes(g)) 
+          : selectedGenres.includes(tech.genre));
+
+      if (searchTerm !== "") { // If there's a search term, it must be part of the match
+        return (nameMatch || innovatorMatch) && matchesTRL && matchesSelectedGenres;
+      } else { // If no search term, only TRL and Genre filters apply
+        return matchesTRL && matchesSelectedGenres;
+      }
+    });
+  }, [technologies, search, selectedGenres, filterTRL]);
 
   const startIndex = (page - 1) * rowsPerPage;
   const paginatedTechs = filteredTechs.slice(startIndex, startIndex + rowsPerPage);
@@ -354,32 +368,26 @@ export default function ExploreTechnologiesPage() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
 
-  // State for technology data coming from the API.
   const [technologies, setTechnologies] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
 
-  // Initialize state from URL query parameters or localStorage.
   const queryParams = new URLSearchParams(location.search);
-  const initialSearch =
-    queryParams.get("search") || localStorage.getItem("techSearch") || "";
-  const initialPage =
-    Number(queryParams.get("page")) ||
-    Number(localStorage.getItem("techPage")) ||
-    1;
-  const initialSelectedGenres = localStorage.getItem("techSelectedGenres")
-    ? JSON.parse(localStorage.getItem("techSelectedGenres"))
-    : [];
+  
+  const initialSearch = queryParams.get("search") || localStorage.getItem("techSearch") || "";
+  const initialPage = Number(queryParams.get("page")) || Number(localStorage.getItem("techPage")) || 1;
+  const initialSelectedGenres = JSON.parse(localStorage.getItem("techSelectedGenres")) || [];
+  const initialFilterTRL = localStorage.getItem("techFilterTRL") || "";
 
   const [search, setSearch] = useState(initialSearch);
   const [page, setPage] = useState(initialPage);
   const [selectedGenres, setSelectedGenres] = useState(initialSelectedGenres);
-  const [filterTRL, setFilterTRL] = useState("");
-  const [filterInnovators, setFilterInnovators] = useState("");
+  const [filterTRL, setFilterTRL] = useState(initialFilterTRL);
   const [showFilters, setShowFilters] = useState(false);
+  const [viewAllTriggered, setViewAllTriggered] = useState(false); // This state controls the "View All" toggle
   const rowsPerPage = 8;
 
   useEffect(() => {
-    fetch("https://192.168.1.148:4000/technologies")
+    fetch("http://192.168.1.148:4000/technologies")
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched data:", data);
@@ -392,110 +400,156 @@ export default function ExploreTechnologiesPage() {
       });
   }, []);
 
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("techSearch");
+      localStorage.removeItem("techPage");
+      localStorage.removeItem("techSelectedGenres");
+      localStorage.removeItem("techFilterTRL");
+    };
+  }, []);
+
   const handleGenreChange = (genre) => {
-    if (selectedGenres.includes(genre)) {
-      setSelectedGenres(selectedGenres.filter((g) => g !== genre));
-    } else {
-      setSelectedGenres([...selectedGenres, genre]);
-    }
+    setSelectedGenres((prevSelectedGenres) => {
+      const newSelectedGenres = prevSelectedGenres.includes(genre)
+        ? prevSelectedGenres.filter((g) => g !== genre)
+        : [...prevSelectedGenres, genre];
+      return newSelectedGenres;
+    });
     setPage(1);
+    setViewAllTriggered(false); // Applying a filter, so not in "view all by button" mode
   };
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
     setPage(1);
+    setViewAllTriggered(false); // Applying a filter
   };
 
   const handleTRLChange = (e) => {
     const value = e.target.value;
-    // Only allow empty or 1-9
     if (value === "" || /^[1-9]$/.test(value)) {
       setFilterTRL(value);
       setPage(1);
+      setViewAllTriggered(false); // Applying a filter
     }
-  };
-
-  const handleInnovatorsChange = (e) => {
-    setFilterInnovators(e.target.value);
-    setPage(1);
   };
 
   const handlePageChange = (event, value) => {
     setPage(value);
+    // If viewAllTriggered was true, paginating should keep showing all techs.
+    // If filters were active, paginating keeps showing filtered techs.
+    // So, no change to viewAllTriggered here.
   };
 
-  const filteredCount = technologies.filter((tech) => {
-    const matchesSearch = tech.name.toLowerCase().includes(search.toLowerCase());
-    const matchesTRL =
-      filterTRL === "" ||
-      (tech.trl && Number(tech.trl) === Number(filterTRL));
-      
-    // Fixed innovators filter to handle array of objects
-    const matchesInnovators =
-      filterInnovators === "" ||
-      (tech.innovators &&
-        (Array.isArray(tech.innovators)
-          ? tech.innovators.some(innovator => 
-              innovator.name.toLowerCase().includes(filterInnovators.toLowerCase()))
-          : typeof tech.innovators === 'string' 
-            ? tech.innovators.toLowerCase().includes(filterInnovators.toLowerCase())
-            : false
-        ));
-        
-    const matchesSelectedGenres =
-      selectedGenres.length === 0 || selectedGenres.includes(tech.genre);
-  
-    return matchesSearch && matchesTRL && matchesInnovators && matchesSelectedGenres;
-  }).length;
+  const handleViewAll = () => {
+    // Clear all filters first
+    setSearch("");
+    setPage(1); // Reset to first page
+    setSelectedGenres([]);
+    setFilterTRL("");
+    setShowFilters(false); // Close advanced filter panel
 
+    // Toggle the viewAllTriggered state
+    // If it's true (already showing all list), set to false (to show spotlight)
+    // If it's false (showing spotlight or filtered list), set to true (to show all list)
+    setViewAllTriggered(prev => !prev);
+  };
+
+  const filteredTechsForCount = useMemo(() => { 
+    const searchTerm = search.toLowerCase();
+
+    // If viewAllTriggered is true AND all actual filters are empty, count all technologies
+    if (viewAllTriggered && searchTerm === "" && selectedGenres.length === 0 && filterTRL === "") {
+        return technologies; 
+    }
+
+    // Otherwise, apply filters as usual
+    return technologies.filter((tech) => {
+      const nameMatch = tech.name.toLowerCase().includes(searchTerm);
+      let innovatorMatch = false;
+      if (tech.innovators) {
+        if (Array.isArray(tech.innovators)) {
+          innovatorMatch = tech.innovators.some(innovator => 
+            innovator.name && innovator.name.toLowerCase().includes(searchTerm)
+          );
+        } else if (typeof tech.innovators === 'string') {
+          innovatorMatch = tech.innovators.toLowerCase().includes(searchTerm);
+        }
+      }
+      
+      const matchesSearchCriteria = searchTerm === "" || nameMatch || innovatorMatch;
+
+      const matchesTRL =
+        filterTRL === "" ||
+        (tech.trl && Number(tech.trl) === Number(filterTRL));
+        
+      const matchesSelectedGenres =
+        selectedGenres.length === 0 || 
+        (Array.isArray(tech.genre) 
+          ? tech.genre.some(g => selectedGenres.includes(g)) 
+          : selectedGenres.includes(tech.genre));
+      
+      if (searchTerm !== "") {
+        return (nameMatch || innovatorMatch) && matchesTRL && matchesSelectedGenres;
+      } else { 
+        return matchesTRL && matchesSelectedGenres;
+      }
+    });
+  }, [technologies, search, filterTRL, selectedGenres, viewAllTriggered]);
+
+  const filteredCount = filteredTechsForCount.length;
   const pageCount = Math.ceil(filteredCount / rowsPerPage);
-  const showTechList = search.trim() !== "" || selectedGenres.length > 0;
+
+  // Determine if any actual filters (search, genre, TRL) are active
+  const filtersAreActive = search.trim() !== "" || selectedGenres.length > 0 || filterTRL !== "";
+  // Display TechList if actual filters are active OR if "View All" button has triggered the "all list" mode
+  const displayTechList = filtersAreActive || viewAllTriggered; 
 
   useEffect(() => {
     const params = new URLSearchParams();
     if (search.trim() !== "") params.set("search", search);
-    params.set("page", page);
+    if (page !== 1 ) params.set("page", page.toString());
 
     localStorage.setItem("techSearch", search);
-    localStorage.setItem("techPage", page);
+    localStorage.setItem("techPage", page.toString());
     localStorage.setItem("techSelectedGenres", JSON.stringify(selectedGenres));
-
+    localStorage.setItem("techFilterTRL", filterTRL);
+    
     navigate(`?${params.toString()}`, { replace: true });
-  }, [search, page, selectedGenres, navigate]);
+
+  }, [search, page, selectedGenres, filterTRL, navigate]);
 
   useEffect(() => {
     if (navigationType !== "POP") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [navigationType]);
+  }, [page, navigationType]); 
 
   return (
     <Box sx={{ bgcolor: themeColors.background, minHeight: "100vh", wordBreak: "break-word" }}>
-      {/* Top AppBar */}
-      
-
-      {/* Hero Section */}
-            <Box className="hero-section" minHeight='20vh'>
-              <Container maxWidth="lg">
-                <Box className="hero-content">
-                  <Typography variant="overline" className="service-label">
-                    Technologies AT IIITD
-                  </Typography>
-                  <Typography variant="h1" className="hero-title">
-                    Explore Technologies
-                  </Typography>
-                  <Typography variant="body1" className="hero-description">
-                    Discover innovative technologies developed by our researchers and partners, driving forward new advancements and breakthroughs in various fields.                  </Typography>
-                </Box>
-              </Container>
-            </Box>
+      <Box className="hero-section" minHeight='20vh'>
+        <Container maxWidth="lg">
+          <Box className="hero-content">
+            <Typography variant="overline" className="service-label">
+              Technologies AT IIITD
+            </Typography>
+            <Typography variant="h1" className="hero-title">
+              Explore Technologies
+            </Typography>
+            <Typography variant="body1" className="hero-description">
+              Discover innovative technologies developed by our researchers and partners, driving forward new advancements and breakthroughs in various fields.
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
 
       <Container maxWidth="lg" sx={{ py: { xs: 0, md: 0 }, wordBreak: "break-word" }}>
-        {/* Search Bar with Advanced Filters */}
         <Box my={3}>
           <Box mb={1}>
             <Paper
               component="form"
+              onSubmit={(e) => e.preventDefault()} 
               sx={{
                 p: "4px 8px",
                 display: "flex",
@@ -512,11 +566,10 @@ export default function ExploreTechnologiesPage() {
               }}
             >
               <InputAdornment sx={{ pl: 1 }}>
-                <Search sx={{ color: "lightgray",
-                }} />
+                <Search sx={{ color: "lightgray" }} />
               </InputAdornment>
               <TextField
-                placeholder="Search technologies..."
+                placeholder="Search by name or innovator..." 
                 variant="standard"
                 fullWidth
                 value={search}
@@ -531,6 +584,7 @@ export default function ExploreTechnologiesPage() {
                         sx={{
                           color: showFilters ? themeColors.primary : "inherit",
                           bgcolor: showFilters ? `${themeColors.primary}10` : "transparent",
+                          mr: 0.5, 
                         }}
                       >
                         <FilterList />
@@ -540,6 +594,26 @@ export default function ExploreTechnologiesPage() {
                 }}
               />
             </Paper>
+             <Box mt={1} display="flex" justifyContent="flex-end">
+                <Button
+                    onClick={handleViewAll} 
+                    size="small"
+                    startIcon={<ViewAllIcon />} 
+                    sx={{
+                    color: themeColors.textSecondary,
+                    borderColor: themeColors.border,
+                    '&:hover': {
+                        backgroundColor: `${themeColors.primary}10`,
+                        borderColor: themeColors.primary,
+                        color: themeColors.primary,
+                    },
+                    textTransform: 'none',
+                    fontWeight: 500,
+                    }}
+                >
+                    View All Technologies 
+                </Button>
+            </Box>
           </Box>
           <Collapse in={showFilters} timeout="auto" unmountOnExit>
             <Paper
@@ -554,7 +628,7 @@ export default function ExploreTechnologiesPage() {
               }}
             >
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}> {/* TRL filter now takes full width */}
                   <TextField
                     fullWidth
                     label="Filter by TRL Level (1-9)"
@@ -576,38 +650,18 @@ export default function ExploreTechnologiesPage() {
                     }}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label="Filter by Innovators"
-                    variant="outlined"
-                    size="small"
-                    value={filterInnovators}
-                    onChange={handleInnovatorsChange}
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&.Mui-focused fieldset": {
-                          borderColor: themeColors.primary,
-                        },
-                      },
-                      "& .MuiInputLabel-root.Mui-focused": {
-                        color: themeColors.primary,
-                      },
-                    }}
-                  />
-                </Grid>
               </Grid>
             </Paper>
           </Collapse>
         </Box>
 
-        <Grid container spacing={3}>
-          {/* Filter sidebar only if we have search text (and not in mobile layout) */}
-          {search.trim() !== "" && !isMedium && (
+        <Grid container spacing={isMedium ? 2 : 3}>
+          {/* Sidebars visibility depends on whether the tech list is being displayed */}
+          {(displayTechList) && !isMedium && ( 
             <Grid item xs={12} md={3}>
-              <FilterSidebar
-                selectedGenres={selectedGenres}
-                handleGenreChange={handleGenreChange}
+              <FilterSidebar 
+                selectedGenres={selectedGenres} 
+                handleGenreChange={handleGenreChange} 
               />
             </Grid>
           )}
@@ -615,7 +669,7 @@ export default function ExploreTechnologiesPage() {
           <Grid
             item
             xs={12}
-            md={search.trim() !== "" ? (isMedium ? 12 : 6) : (isMedium ? 12 : 9)}
+            md={(displayTechList) ? (isMedium ? 12 : 6) : (isMedium ? 12 : 9)} 
           >
             <Suspense
               fallback={
@@ -628,7 +682,7 @@ export default function ExploreTechnologiesPage() {
                 <Box display="flex" justifyContent="center" my={8}>
                   <CircularProgress sx={{ color: themeColors.primary }} />
                 </Box>
-              ) : showTechList ? (
+              ) : displayTechList ? ( 
                 <TechList
                   technologies={technologies}
                   search={search}
@@ -636,20 +690,27 @@ export default function ExploreTechnologiesPage() {
                   rowsPerPage={rowsPerPage}
                   selectedGenres={selectedGenres}
                   filterTRL={filterTRL}
-                  filterInnovators={filterInnovators}
                 />
-              ) : (
+              ) : ( // Display Spotlight if not displaying tech list
                 <Box>
+                   <Typography variant="h5" sx={{ mb: 2, color: themeColors.textPrimary, fontWeight:600 }}>Spotlight Technologies</Typography>
                   <Stack spacing={3}>
-                    {technologies.filter(tech => tech.spotlight).map((tech, index) => (
-                      <Spotlight key={index} tech={tech} />
-                    ))}
+                    {technologies.filter(tech => tech.spotlight).length > 0 ? (
+                        technologies.filter(tech => tech.spotlight).map((tech, index) => (
+                            <Spotlight key={index} tech={tech} />
+                        ))
+                    ) : (
+                        <Typography sx={{textAlign: 'center', color: themeColors.textSecondary, mt: 3}}>
+                            No spotlight technologies available at the moment.
+                        </Typography>
+                    )}
                   </Stack>
                 </Box>
               )}
             </Suspense>
 
-            {showTechList && filteredCount > 0 && (
+            {/* Pagination is shown only when the tech list is displayed and there's content to paginate */}
+            {displayTechList && filteredCount > 0 && ( 
               <Box sx={{ display: "flex", justifyContent: "center", mt: 6, mb: 4 }}>
                 <Pagination
                   count={pageCount}
@@ -664,26 +725,29 @@ export default function ExploreTechnologiesPage() {
                       backgroundColor: themeColors.primary,
                       color: "white",
                     },
+                    "& .MuiPaginationItem-page.Mui-selected:hover": {
+                       backgroundColor: themeColors.primary, 
+                    }
                   }}
                 />
               </Box>
             )}
           </Grid>
 
+          {/* Genre Sidebar visibility */}
           <Grid
             item
             xs={12}
             md={3}
-            sx={{ display: { xs: isMedium ? "block" : "none", md: "block" } }}
+            sx={{ display: { xs: (isMedium && (displayTechList)) ? "block" : "none", md: "block" } }} 
           >
-            <GenreSidebar
+            <GenreSidebar 
               selectedGenres={selectedGenres}
               handleGenreChange={handleGenreChange}
             />
           </Grid>
         </Grid>
       </Container>
-
     </Box>
   );
 }

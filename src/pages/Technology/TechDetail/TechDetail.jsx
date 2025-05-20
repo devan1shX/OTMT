@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link as RouterLink } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -36,6 +38,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LinkIcon from "@mui/icons-material/Link";
 import SchoolIcon from "@mui/icons-material/School";
+import ArticleIcon from "@mui/icons-material/Article"; // For brochures section title
 
 // Image Gallery Dialog Component
 const ImageGalleryDialog = ({
@@ -67,7 +70,6 @@ const ImageGalleryDialog = ({
       }}
     >
       <Box sx={{ position: "relative", width: "100%", bgcolor: "black" }}>
-        {/* Close button */}
         <IconButton
           onClick={handleClose}
           sx={{
@@ -82,8 +84,6 @@ const ImageGalleryDialog = ({
         >
           <CloseIcon />
         </IconButton>
-
-        {/* Image container */}
         <Box
           sx={{
             width: "100%",
@@ -103,8 +103,6 @@ const ImageGalleryDialog = ({
               objectFit: "contain",
             }}
           />
-
-          {/* Navigation buttons */}
           {images.length > 1 && (
             <>
               <IconButton
@@ -119,7 +117,6 @@ const ImageGalleryDialog = ({
               >
                 <ArrowBackIcon />
               </IconButton>
-
               <IconButton
                 onClick={handleNext}
                 sx={{
@@ -135,8 +132,6 @@ const ImageGalleryDialog = ({
             </>
           )}
         </Box>
-
-        {/* Caption area */}
         {currentImage.caption && (
           <Box sx={{ p: 2, bgcolor: "background.paper" }}>
             <Typography variant="body1" align="center">
@@ -157,7 +152,6 @@ const ImageGalleryDialog = ({
 };
 
 const InnovatorsSection = ({ tech }) => {
-  // Safely check for innovators data
   const innovators =
     tech?.innovators && Array.isArray(tech.innovators) ? tech.innovators : [];
 
@@ -167,16 +161,13 @@ const InnovatorsSection = ({ tech }) => {
         <SchoolIcon sx={{ mr: 1, color: "primary.main" }} />
         <Typography variant="h6">Innovators</Typography>
       </Box>
-
       <Divider sx={{ mb: 2 }} />
-
       {innovators.length > 0 ? (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
           {innovators.map((innovator, index) => (
             <ListItemButton
               key={index}
               component="a"
-              // href is now always "#" as we are not using mailto links
               href="#"
               sx={{
                 width: "100%",
@@ -187,14 +178,10 @@ const InnovatorsSection = ({ tech }) => {
                 transition: "all 0.2s",
                 "&:hover": {
                   borderColor: "primary.main",
-                  bgcolor: "rgba(42, 157, 143, 0.05)", // Assuming this color is from your theme or a specific value
+                  bgcolor: "rgba(42, 157, 143, 0.05)",
                   transform: "translateY(-2px)",
                   boxShadow: 1,
                 },
-                // If it's not meant to be interactive without the mail link,
-                // you might consider removing component="a" and href,
-                // or changing hover styles if it's no longer a link.
-                // For now, keeping it as a non-navigating link.
               }}
             >
               <ListItemAvatar>
@@ -204,7 +191,6 @@ const InnovatorsSection = ({ tech }) => {
               </ListItemAvatar>
               <ListItemText
                 primary={innovator.name || "Unknown Innovator"}
-                // Secondary text (email) is now removed
                 secondary={null}
               />
             </ListItemButton>
@@ -222,17 +208,16 @@ const InnovatorsSection = ({ tech }) => {
   );
 };
 
-// IIITD Theme
 const iiitdTheme = createTheme({
   palette: {
     primary: {
-      main: "#2A9D8F", // IIITD teal/green color
+      main: "#2A9D8F",
       light: "#4DB6A9",
       dark: "#1E7268",
       contrastText: "#FFFFFF",
     },
     secondary: {
-      main: "#264653", // Darker complementary color
+      main: "#264653",
       light: "#3A5F6F",
       dark: "#1A323C",
       contrastText: "#FFFFFF",
@@ -249,33 +234,13 @@ const iiitdTheme = createTheme({
   },
   typography: {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    h3: {
-      fontWeight: 600,
-      fontSize: "2rem",
-      lineHeight: 1.2,
-    },
-    h5: {
-      fontWeight: 600,
-      fontSize: "1.25rem",
-      lineHeight: 1.4,
-    },
-    h6: {
-      fontWeight: 600,
-      fontSize: "1rem",
-      lineHeight: 1.4,
-    },
-    body1: {
-      fontSize: "1rem",
-      lineHeight: 1.6,
-    },
-    body2: {
-      fontSize: "0.875rem",
-      lineHeight: 1.6,
-    },
+    h3: { fontWeight: 600, fontSize: "2rem", lineHeight: 1.2 },
+    h5: { fontWeight: 600, fontSize: "1.25rem", lineHeight: 1.4 },
+    h6: { fontWeight: 600, fontSize: "1rem", lineHeight: 1.4 },
+    body1: { fontSize: "1rem", lineHeight: 1.6 },
+    body2: { fontSize: "0.875rem", lineHeight: 1.6 },
   },
-  shape: {
-    borderRadius: 8,
-  },
+  shape: { borderRadius: 8 },
   components: {
     MuiButton: {
       styleOverrides: {
@@ -289,30 +254,18 @@ const iiitdTheme = createTheme({
     },
     MuiPaper: {
       styleOverrides: {
-        root: {
-          borderRadius: 8,
-          boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.05)",
-        },
+        root: { borderRadius: 8, boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.05)" },
       },
     },
     MuiChip: {
-      styleOverrides: {
-        root: {
-          fontWeight: 500,
-        },
-      },
+      styleOverrides: { root: { fontWeight: 500 } },
     },
     MuiListItemButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: 8,
-        },
-      },
+      styleOverrides: { root: { borderRadius: 8 } },
     },
   },
 });
 
-// Loading Skeleton Component
 const LoadingState = () => (
   <Container
     sx={{
@@ -331,39 +284,42 @@ const LoadingState = () => (
   </Container>
 );
 
-const API_BASE_URL = "https://192.168.1.148:5001";
+const API_BASE_URL = "http://192.168.1.148:5001"; // For file serving (images, brochures)
+const DATA_API_BASE_URL = "http://192.168.1.148:4000"; // For fetching main tech data
 
-// Main TechDetail Component
 function TechDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [tech, setTech] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState(null);
   const [openGallery, setOpenGallery] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const [relatedTechs, setRelatedTechs] = useState([]);
   const isMobile = useMediaQuery(iiitdTheme.breakpoints.down("sm"));
 
-  // Fetch main technology details
   useEffect(() => {
     const fetchTechDetails = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const res = await fetch(`https://192.168.1.148:4000/technologies/${id}`);
+        const res = await fetch(`${DATA_API_BASE_URL}/technologies/${id}`);
         if (!res.ok) {
-          throw new Error("Technology not found");
+          const errData = await res
+            .json()
+            .catch(() => ({ message: `Error: ${res.status}` }));
+          throw new Error(
+            errData.message ||
+              `Technology not found or error fetching: ${res.status}`
+          );
         }
         const data = await res.json();
         setTech(data);
-        setLoading(false);
-
-        // Scroll to top when new tech is loaded
         window.scrollTo(0, 0);
       } catch (error) {
         console.error("Error fetching technology:", error);
         setTech(null);
+        setError(error.message);
+      } finally {
         setLoading(false);
       }
     };
@@ -371,7 +327,6 @@ function TechDetail() {
     fetchTechDetails();
   }, [id]);
 
-  // In your TechDetail function component, add this before the return statement:
   const handleOpenGallery = (index) => {
     setCurrentImageIndex(index);
     setOpenGallery(true);
@@ -393,8 +348,7 @@ function TechDetail() {
     );
   };
 
-  // Helper function to safely render arrays
-  const renderList = (items) => {
+  const renderList = (items, itemIcon) => {
     if (!items || !Array.isArray(items) || items.length === 0) {
       return (
         <Typography
@@ -422,10 +376,17 @@ function TechDetail() {
             }}
           >
             <ListItemIcon sx={{ minWidth: 28 }}>
-              <CheckCircleIcon
-                sx={{ color: "primary.main" }}
-                fontSize="small"
-              />
+              {itemIcon ? (
+                React.cloneElement(itemIcon, {
+                  sx: { color: "primary.main" },
+                  fontSize: "small",
+                })
+              ) : (
+                <CheckCircleIcon
+                  sx={{ color: "primary.main" }}
+                  fontSize="small"
+                />
+              )}
             </ListItemIcon>
             <ListItemText
               primary={item}
@@ -449,7 +410,7 @@ function TechDetail() {
     );
   }
 
-  if (!tech) {
+  if (error || !tech) {
     return (
       <ThemeProvider theme={iiitdTheme}>
         <Container
@@ -463,19 +424,14 @@ function TechDetail() {
         >
           <Paper
             elevation={1}
-            sx={{
-              p: 4,
-              maxWidth: 500,
-              mx: "auto",
-              wordBreak: "break-word",
-            }}
+            sx={{ p: 4, maxWidth: 500, mx: "auto", wordBreak: "break-word" }}
           >
             <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
-              Technology not found
+              {error ? "Error Loading Technology" : "Technology Not Found"}
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-              The technology you're looking for doesn't exist or has been
-              removed.
+              {error ||
+                "The technology you're looking for doesn't exist or has been removed."}
             </Typography>
             <Button
               variant="contained"
@@ -498,10 +454,7 @@ function TechDetail() {
           <Container maxWidth="lg">
             <Box
               className="hero-content"
-              sx={{
-                maxWidth: "100%",
-                overflow: "hidden", // hide any overflow if needed
-              }}
+              sx={{ maxWidth: "100%", overflow: "hidden" }}
             >
               <Typography
                 variant="overline"
@@ -533,7 +486,7 @@ function TechDetail() {
                   overflowWrap: "break-word",
                   wordBreak: "break-word",
                   maxWidth: "100%",
-                  whiteSpace: "normal", // allow wrapping instead of forcing a single line
+                  whiteSpace: "normal",
                 }}
               >
                 {tech.name}
@@ -545,7 +498,7 @@ function TechDetail() {
                   overflowWrap: "break-word",
                   wordBreak: "break-word",
                   maxWidth: "100%",
-                  whiteSpace: "normal", // allow wrapping here as well
+                  whiteSpace: "normal",
                 }}
               >
                 {tech.overview ||
@@ -565,9 +518,7 @@ function TechDetail() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            {/* Main Details */}
             <Grid container spacing={3}>
-              {/* Left Column: Detailed Description & Technical Specs */}
               <Grid item xs={12} md={8}>
                 <Paper
                   elevation={1}
@@ -590,12 +541,10 @@ function TechDetail() {
                       bgcolor: "primary.light",
                     }}
                   />
-
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                     <DescriptionIcon sx={{ mr: 1, color: "primary.main" }} />
                     <Typography variant="h5">Description</Typography>
                   </Box>
-
                   <Typography
                     variant="body1"
                     sx={{
@@ -608,7 +557,6 @@ function TechDetail() {
                       "No detailed description available"}
                   </Typography>
                 </Paper>
-
                 <Paper
                   elevation={1}
                   sx={{
@@ -630,14 +578,12 @@ function TechDetail() {
                       bgcolor: "primary.light",
                     }}
                   />
-
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                     <DescriptionIcon sx={{ mr: 1, color: "primary.main" }} />
                     <Typography variant="h5">
                       Technical Specifications
                     </Typography>
                   </Box>
-
                   <Typography
                     variant="body1"
                     sx={{
@@ -650,7 +596,6 @@ function TechDetail() {
                       "No technical specifications available"}
                   </Typography>
                 </Paper>
-
                 <Paper
                   elevation={1}
                   sx={{
@@ -671,12 +616,10 @@ function TechDetail() {
                       bgcolor: "primary.light",
                     }}
                   />
-
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                     <DescriptionIcon sx={{ mr: 1, color: "primary.main" }} />
                     <Typography variant="h5">Overview</Typography>
                   </Box>
-
                   <Typography
                     variant="body1"
                     sx={{
@@ -685,12 +628,13 @@ function TechDetail() {
                       wordBreak: "break-word",
                     }}
                   >
-                    {tech.description || "No description available"}
+                    {tech.overview ||
+                      tech.description ||
+                      "No overview available"}
                   </Typography>
                 </Paper>
               </Grid>
 
-              {/* Right Column: Quick Info */}
               <Grid item xs={12} md={4}>
                 <Paper
                   elevation={1}
@@ -710,9 +654,7 @@ function TechDetail() {
                       <CategoryIcon sx={{ mr: 1, color: "primary.main" }} />
                       <Typography variant="h6">Technical Details</Typography>
                     </Box>
-
                     <Divider sx={{ mb: 2 }} />
-
                     <Grid container spacing={1}>
                       <Grid item xs={4}>
                         <Typography
@@ -733,7 +675,6 @@ function TechDetail() {
                           }}
                         />
                       </Grid>
-
                       <Grid item xs={4}>
                         <Typography
                           variant="body2"
@@ -750,7 +691,6 @@ function TechDetail() {
                           {tech.docket || "Not specified"}
                         </Typography>
                       </Grid>
-
                       <Grid item xs={4}>
                         <Typography
                           variant="body2"
@@ -769,11 +709,9 @@ function TechDetail() {
                       </Grid>
                     </Grid>
                   </Box>
-
                   <Box sx={{ mb: 3 }}>
                     <InnovatorsSection tech={tech} />
                   </Box>
-
                   <Box>
                     <Box
                       sx={{ display: "flex", alignItems: "center", mb: 1.5 }}
@@ -781,12 +719,9 @@ function TechDetail() {
                       <CheckCircleIcon sx={{ mr: 1, color: "primary.main" }} />
                       <Typography variant="h6">Advantages</Typography>
                     </Box>
-
                     <Divider sx={{ mb: 2 }} />
-
-                    {renderList(tech.advantages)}
+                    {renderList(tech.advantages, <CheckCircleIcon />)}
                   </Box>
-
                   {isMobile && (
                     <Box sx={{ mt: 3 }}>
                       <Button
@@ -804,7 +739,6 @@ function TechDetail() {
               </Grid>
             </Grid>
 
-            {/* Applications and Use Cases */}
             <Grid container spacing={3} sx={{ mt: 0.5 }}>
               <Grid item xs={12} md={6}>
                 <Paper
@@ -827,18 +761,14 @@ function TechDetail() {
                       bgcolor: "primary.light",
                     }}
                   />
-
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                     <CheckCircleIcon sx={{ mr: 1, color: "primary.main" }} />
                     <Typography variant="h5">Applications</Typography>
                   </Box>
-
                   <Divider sx={{ mb: 2 }} />
-
-                  {renderList(tech.applications)}
+                  {renderList(tech.applications, <CheckCircleIcon />)}
                 </Paper>
               </Grid>
-
               <Grid item xs={12} md={6}>
                 <Paper
                   elevation={1}
@@ -860,54 +790,117 @@ function TechDetail() {
                       bgcolor: "primary.light",
                     }}
                   />
-
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                     <CheckCircleIcon sx={{ mr: 1, color: "primary.main" }} />
                     <Typography variant="h5">Use Cases</Typography>
                   </Box>
-
                   <Divider sx={{ mb: 2 }} />
-
-                  {renderList(tech.useCases)}
+                  {renderList(tech.useCases, <CheckCircleIcon />)}
                 </Paper>
               </Grid>
             </Grid>
 
-            {/* Related Links */}
-            <Paper
-              elevation={1}
-              sx={{
-                p: { xs: 2, sm: 3 },
-                mt: 3,
-                bgcolor: "white",
-                wordBreak: "break-word",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <Box
+            {tech.brochures && tech.brochures.length > 0 && (
+              <Paper
+                elevation={1}
                 sx={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "4px",
-                  height: "100%",
-                  bgcolor: "primary.light",
+                  mt: 3,
+                  p: { xs: 2, sm: 3 },
+                  bgcolor: "white",
+                  borderRadius: 2,
+                  position: "relative",
+                  overflow: "hidden",
                 }}
-              />
+              >
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "4px",
+                    height: "100%",
+                    bgcolor: "primary.light",
+                  }}
+                />
+                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                  <ArticleIcon sx={{ mr: 1, color: "primary.main" }} />
+                  <Typography variant="h5">Brochures & Documents</Typography>
+                </Box>
+                <Divider sx={{ mb: 2 }} />
+                <List disablePadding>
+                  {tech.brochures.map((brochure, index) => (
+                    <ListItemButton
+                      key={`brochure-${index}-${brochure.url}`}
+                      component="a"
+                      href={`${API_BASE_URL}${brochure.url}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        border: "1px solid",
+                        borderColor: "divider",
+                        borderRadius: 1,
+                        mb: 1,
+                        transition: "all 0.2s",
+                        "&:hover": {
+                          borderColor: "primary.main",
+                          bgcolor: "rgba(42, 157, 143, 0.05)",
+                          transform: "translateY(-1px)",
+                          boxShadow: 1,
+                        },
+                      }}
+                    >
+                      <ListItemIcon sx={{ minWidth: 36 }}>
+                        <DescriptionIcon sx={{ color: "primary.main" }} />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={
+                          brochure.originalName || `Document ${index + 1}`
+                        }
+                        primaryTypographyProps={{
+                          variant: "body1",
+                          fontWeight: 500,
+                          color: "text.primary",
+                          wordBreak: "break-word",
+                        }}
+                      />
+                      <ArrowForwardIcon
+                        sx={{ color: "text.secondary", ml: 1 }}
+                      />
+                    </ListItemButton>
+                  ))}
+                </List>
+              </Paper>
+            )}
 
-              <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                <LinkIcon sx={{ mr: 1, color: "primary.main" }} />
-                <Typography variant="h5">Related Links</Typography>
-              </Box>
-
-              <Divider sx={{ mb: 2 }} />
-
-              <Grid container spacing={2}>
-                {tech.relatedLinks &&
-                Array.isArray(tech.relatedLinks) &&
-                tech.relatedLinks.length > 0 ? (
-                  tech.relatedLinks.map((link, index) => (
+            {tech.relatedLinks && tech.relatedLinks.length > 0 && (
+              <Paper
+                elevation={1}
+                sx={{
+                  mt: 3,
+                  p: { xs: 2, sm: 3 },
+                  bgcolor: "white",
+                  wordBreak: "break-word",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+              >
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "4px",
+                    height: "100%",
+                    bgcolor: "primary.light",
+                  }}
+                />
+                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                  <LinkIcon sx={{ mr: 1, color: "primary.main" }} />
+                  <Typography variant="h5">Related Links</Typography>
+                </Box>
+                <Divider sx={{ mb: 2 }} />
+                <Grid container spacing={2}>
+                  {tech.relatedLinks.map((link, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
                       <ListItemButton
                         component="a"
@@ -939,159 +932,151 @@ function TechDetail() {
                         />
                       </ListItemButton>
                     </Grid>
-                  ))
-                ) : (
-                  <Grid item xs={12}>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: "text.secondary", fontStyle: "italic" }}
-                    >
-                      No related links available
-                    </Typography>
-                  </Grid>
-                )}
-              </Grid>
+                  ))}
+                </Grid>
+              </Paper>
+            )}
 
-              {/* Image Gallery Section */}
-              {tech.images && tech.images.length > 0 && (
-                <Paper
-                  elevation={1}
+            {tech.images && tech.images.length > 0 && (
+              <Paper
+                elevation={1}
+                sx={{
+                  mt: 3,
+                  p: { xs: 2, sm: 3 },
+                  bgcolor: "white",
+                  wordBreak: "break-word",
+                  position: "relative",
+                  overflow: "hidden",
+                  borderRadius: 2,
+                }}
+              >
+                <Box
                   sx={{
-                    mt: 3,
-                    p: { xs: 2, sm: 3 },
-                    bgcolor: "white",
-                    wordBreak: "break-word",
-                    position: "relative",
-                    overflow: "hidden",
-                    borderRadius: 2,
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "4px",
+                    height: "100%",
+                    bgcolor: "primary.light",
                   }}
-                >
-                  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                    <ImageIcon sx={{ mr: 1, color: "primary.main" }} />
-                    <Typography variant="h5">Gallery</Typography>
-                  </Box>
-
-                  <Divider sx={{ mb: 3 }} />
-
-                  <Grid container spacing={2}>
-                    {tech.images.map((image, index) => (
-                      <Grid item xs={6} sm={4} md={3} key={index}>
-                        <motion.div
-                          whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                />
+                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                  <ImageIcon sx={{ mr: 1, color: "primary.main" }} />
+                  <Typography variant="h5">Gallery</Typography>
+                </Box>
+                <Divider sx={{ mb: 3 }} />
+                <Grid container spacing={2}>
+                  {tech.images.map((image, index) => (
+                    <Grid item xs={6} sm={4} md={3} key={index}>
+                      <motion.div
+                        whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                      >
+                        <Box
+                          onClick={() => handleOpenGallery(index)}
+                          sx={{
+                            cursor: "pointer",
+                            borderRadius: 1,
+                            overflow: "hidden",
+                            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+                            height: 180,
+                            position: "relative",
+                            "&:hover::after": { opacity: 1 },
+                            "&::after": {
+                              content: '""',
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              background:
+                                "linear-gradient(to top, rgba(42, 157, 143, 0.7) 0%, rgba(0,0,0,0) 60%)",
+                              opacity: 0,
+                              transition: "opacity 0.3s ease",
+                            },
+                            transition:
+                              "transform 0.2s ease, box-shadow 0.2s ease",
+                            "&:hover": {
+                              boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+                            },
+                          }}
                         >
+                          <img
+                            src={`${API_BASE_URL}${image.url}`}
+                            alt={
+                              image.caption || `${tech.name} image ${index + 1}`
+                            }
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              display: "block",
+                            }}
+                          />
                           <Box
-                            onClick={() => handleOpenGallery(index)}
                             sx={{
-                              cursor: "pointer",
-                              borderRadius: 1,
-                              overflow: "hidden",
-                              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                              height: 180,
-                              position: "relative",
-                              "&:hover::after": {
-                                opacity: 1,
-                              },
-                              "&::after": {
-                                content: '""',
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                background:
-                                  "linear-gradient(to top, rgba(42, 157, 143, 0.7) 0%, rgba(0,0,0,0) 60%)",
-                                opacity: 0,
-                                transition: "opacity 0.3s ease",
-                              },
-                              transition:
-                                "transform 0.2s ease, box-shadow 0.2s ease",
-                              "&:hover": {
-                                boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
-                              },
+                              position: "absolute",
+                              bottom: 8,
+                              right: 8,
+                              bgcolor: "rgba(255,255,255,0.9)",
+                              borderRadius: "50%",
+                              p: 0.75,
+                              zIndex: 1,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
                             }}
                           >
-                            <img
-                              src={`${API_BASE_URL}${image.url}`}
-                              alt={
-                                image.caption ||
-                                `${tech.name} image ${index + 1}`
-                              }
-                              style={{
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover",
-                                display: "block",
-                              }}
+                            <ZoomInIcon
+                              sx={{ fontSize: 18, color: "primary.main" }}
                             />
-
-                            {/* Zoom indicator */}
-                            <Box
-                              sx={{
-                                position: "absolute",
-                                bottom: 8,
-                                right: 8,
-                                bgcolor: "rgba(255,255,255,0.9)",
-                                borderRadius: "50%",
-                                p: 0.75,
-                                zIndex: 1,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
-                              }}
-                            >
-                              <ZoomInIcon
-                                sx={{ fontSize: 18, color: "primary.main" }}
-                              />
-                            </Box>
                           </Box>
+                        </Box>
+                        {image.caption && (
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              mt: 1,
+                              mb: 2,
+                              color: "text.primary",
+                              fontWeight: 500,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              display: "-webkit-box",
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: "vertical",
+                              lineHeight: 1.3,
+                            }}
+                          >
+                            {" "}
+                            {image.caption}{" "}
+                          </Typography>
+                        )}
+                      </motion.div>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Paper>
+            )}
 
-                          {/* Caption below the image */}
-                          {image.caption && (
-                            <Typography
-                              variant="body2"
-                              sx={{
-                                mt: 1,
-                                mb: 2,
-                                color: "text.primary",
-                                fontWeight: 500,
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                display: "-webkit-box",
-                                WebkitLineClamp: 2,
-                                WebkitBoxOrient: "vertical",
-                                lineHeight: 1.3,
-                              }}
-                            >
-                              {image.caption}
-                            </Typography>
-                          )}
-                        </motion.div>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Paper>
-              )}
-
-              {!isMobile && (
-                <Box sx={{ mt: 3, display: "flex", justifyContent: "center" }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => navigate(-1)}
-                    startIcon={<ArrowBackIcon />}
-                    sx={{
-                      boxShadow: "0 4px 10px rgba(42, 157, 143, 0.25)",
-                      "&:hover": {
-                        boxShadow: "0 6px 12px rgba(42, 157, 143, 0.3)",
-                      },
-                    }}
-                  >
-                    Back to Technologies
-                  </Button>
-                </Box>
-              )}
-            </Paper>
+            {!isMobile && (
+              <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => navigate(-1)}
+                  startIcon={<ArrowBackIcon />}
+                  sx={{
+                    boxShadow: "0 4px 10px rgba(42, 157, 143, 0.25)",
+                    "&:hover": {
+                      boxShadow: "0 6px 12px rgba(42, 157, 143, 0.3)",
+                    },
+                  }}
+                >
+                  Back to Technologies
+                </Button>
+              </Box>
+            )}
           </motion.div>
         </Container>
       </Box>
