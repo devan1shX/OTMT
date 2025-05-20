@@ -1,9 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import SiteHeader from './components/header/component';
 import SiteFooter from './components/footer/component';
 import './App.css';
 
-// Import your page components as needed
 import HomePage from './pages/page';
 import CollaboratePage from './pages/Collaborate/page';
 import EventPage from './pages/Event/page';
@@ -21,42 +21,49 @@ import OurTechPage from './pages/Technology/Our_tech/page';
 import ExploreTechnologiesPage from './pages/Technology/Explore/page';
 import TechDetail from './pages/Technology/TechDetail/TechDetail';
 
-function App() {
+const AdminRedirect = () => {
+  useEffect(() => {
+    window.location.href = 'http://192.168.1.147:6000';
+  }, []);
 
   return (
-      <Router>
-        {/* Global header appears on every page */}
-        <SiteHeader />
-        
-        {/* Define your routes here */}
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/Collaborate" element={<CollaboratePage />} />
-          <Route path="/Event" element={<EventPage />} />
-          <Route path="/Contact_Us" element={<ContactPage />} />
+    <div className="flex items-center justify-center h-screen">
+      <p className="text-xl">Redirecting to admin panel...</p>
+    </div>
+  );
+};
 
-          {/* Services routes */}
-          <Route path="/Services/Facilitate_Innovation" element={<FacilitateInnovationPage />} />
-          <Route path="/Services/Tech_Assessment" element={<TechAssessmentPage />} />
-          <Route path="/Services/IPR_Management" element={<IPRManagementPage />} />
-          <Route path="/Services/Tech_Licensing" element={<TechLicensingPage />} />
-          <Route path="/Services/Startup_Facilitation" element={<StartupFacilitationPage />} />
+function App() {
+  return (
+    <Router>
+      <SiteHeader />
+      
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/Collaborate" element={<CollaboratePage />} />
+        <Route path="/Event" element={<EventPage />} />
+        <Route path="/Contact_Us" element={<ContactPage />} />
 
-          {/* Resources routes */}
-          <Route path="/Resources/Faculty" element={<FacultyResourcesPage />} />
-          <Route path="/Resources/Partner" element={<PartnerResourcesPage />} />
-          <Route path="/Resources/Student" element={<StudentResourcesPage />} />
+        <Route path="/Services/Facilitate_Innovation" element={<FacilitateInnovationPage />} />
+        <Route path="/Services/Tech_Assessment" element={<TechAssessmentPage />} />
+        <Route path="/Services/IPR_Management" element={<IPRManagementPage />} />
+        <Route path="/Services/Tech_Licensing" element={<TechLicensingPage />} />
+        <Route path="/Services/Startup_Facilitation" element={<StartupFacilitationPage />} />
 
-          {/* Technology routes */}
-          <Route path="/Our_Research" element={<OurResearchPage />} />
-          <Route path="/Our_Technology" element={<ExploreTechnologiesPage />} />
-          <Route path="/Explore_Technologies" element={<ExploreTechnologiesPage />} />
-          <Route path="/tech/:id" element={<TechDetail />} />
-        </Routes>
+        <Route path="/Resources/Faculty" element={<FacultyResourcesPage />} />
+        <Route path="/Resources/Partner" element={<PartnerResourcesPage />} />
+        <Route path="/Resources/Student" element={<StudentResourcesPage />} />
 
-        {/* Global footer appears on every page */}
-        <SiteFooter />
-      </Router>
+        <Route path="/Our_Research" element={<OurResearchPage />} />
+        <Route path="/Our_Technology" element={<ExploreTechnologiesPage />} />
+        <Route path="/Explore_Technologies" element={<ExploreTechnologiesPage />} />
+        <Route path="/tech/:id" element={<TechDetail />} />
+
+        <Route path="/admin" element={<AdminRedirect />} />
+      </Routes>
+
+      <SiteFooter />
+    </Router>
   );
 }
 
