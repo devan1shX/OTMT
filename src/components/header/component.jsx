@@ -45,8 +45,8 @@ const SiteHeader = () => {
     {
       label: "Our Technology",
       children: [
-        { label: "Our Technology", path: "/Our_Technology" },
-        { label: "Our Research", path: "/Our_Research" }
+        { label: "Explore Technologies", path: "/Explore_Technologies" },
+        { label: "Our Research", path: "/Our_Research" },
       ]
     },
     {
@@ -65,6 +65,8 @@ const SiteHeader = () => {
         // }
       ]
     },
+    
+
     { label: "Collaborate", path: "/Collaborate" },
     { label: "Events", path: "/Event" }
   ]

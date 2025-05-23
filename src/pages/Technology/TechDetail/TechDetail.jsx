@@ -5,8 +5,6 @@ import { useParams, useNavigate, Link as RouterLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import ImageIcon from "@mui/icons-material/Image";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import EmailIcon from "@mui/icons-material/Email";
 import {
   Typography,
   Avatar,
@@ -39,232 +37,14 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import LinkIcon from "@mui/icons-material/Link";
 import SchoolIcon from "@mui/icons-material/School";
 import ArticleIcon from "@mui/icons-material/Article"; // For brochures section title
+import GavelIcon from "@mui/icons-material/Gavel"; // For Patent Status
+import FingerprintIcon from "@mui/icons-material/Fingerprint"; // For Patent ID
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber"; // For Patent App No.
+import DateRangeIcon from "@mui/icons-material/DateRange"; // For Dates
 
-// Image Gallery Dialog Component
-const ImageGalleryDialog = ({
-  open,
-  handleClose,
-  images,
-  currentIndex,
-  handlePrev,
-  handleNext,
-  baseUrl,
-}) => {
-  if (!images || images.length === 0) return null;
-
-  const currentImage = images[currentIndex];
-
-  return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      maxWidth="lg"
-      fullWidth
-      PaperProps={{
-        sx: {
-          bgcolor: "background.paper",
-          boxShadow: 24,
-          borderRadius: 2,
-          overflow: "hidden",
-        },
-      }}
-    >
-      <Box sx={{ position: "relative", width: "100%", bgcolor: "black" }}>
-        <IconButton
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: "white",
-            bgcolor: "rgba(0,0,0,0.4)",
-            zIndex: 10,
-            "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <Box
-          sx={{
-            width: "100%",
-            height: { xs: "50vh", sm: "70vh" },
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            position: "relative",
-          }}
-        >
-          <img
-            src={`${baseUrl}${currentImage.url}`}
-            alt={currentImage.caption || "Gallery image"}
-            style={{
-              maxHeight: "100%",
-              maxWidth: "100%",
-              objectFit: "contain",
-            }}
-          />
-          {images.length > 1 && (
-            <>
-              <IconButton
-                onClick={handlePrev}
-                sx={{
-                  position: "absolute",
-                  left: { xs: 8, sm: 16 },
-                  color: "white",
-                  bgcolor: "rgba(0,0,0,0.4)",
-                  "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
-                }}
-              >
-                <ArrowBackIcon />
-              </IconButton>
-              <IconButton
-                onClick={handleNext}
-                sx={{
-                  position: "absolute",
-                  right: { xs: 8, sm: 16 },
-                  color: "white",
-                  bgcolor: "rgba(0,0,0,0.4)",
-                  "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
-                }}
-              >
-                <ArrowForwardIcon />
-              </IconButton>
-            </>
-          )}
-        </Box>
-        {currentImage.caption && (
-          <Box sx={{ p: 2, bgcolor: "background.paper" }}>
-            <Typography variant="body1" align="center">
-              {currentImage.caption}
-            </Typography>
-            <Typography
-              variant="caption"
-              align="center"
-              sx={{ display: "block", color: "text.secondary", mt: 0.5 }}
-            >
-              {currentIndex + 1} of {images.length}
-            </Typography>
-          </Box>
-        )}
-      </Box>
-    </Dialog>
-  );
-};
-
-const InnovatorsSection = ({ tech }) => {
-  const innovators =
-    tech?.innovators && Array.isArray(tech.innovators) ? tech.innovators : [];
-
-  return (
-    <Box>
-      <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
-        <SchoolIcon sx={{ mr: 1, color: "primary.main" }} />
-        <Typography variant="h6">Innovators</Typography>
-      </Box>
-      <Divider sx={{ mb: 2 }} />
-      {innovators.length > 0 ? (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          {innovators.map((innovator, index) => (
-            <ListItemButton
-              key={index}
-              component="a"
-              href="#"
-              sx={{
-                width: "100%",
-                border: "1px solid",
-                borderColor: "divider",
-                borderRadius: 1,
-                p: 1,
-                transition: "all 0.2s",
-                "&:hover": {
-                  borderColor: "primary.main",
-                  bgcolor: "rgba(42, 157, 143, 0.05)",
-                  transform: "translateY(-2px)",
-                  boxShadow: 1,
-                },
-              }}
-            >
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: "primary.main" }}>
-                  {innovator.name ? innovator.name[0].toUpperCase() : "?"}
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={innovator.name || "Unknown Innovator"}
-                secondary={null}
-              />
-            </ListItemButton>
-          ))}
-        </Box>
-      ) : (
-        <Typography
-          variant="body2"
-          sx={{ color: "text.secondary", fontStyle: "italic" }}
-        >
-          No innovator information available
-        </Typography>
-      )}
-    </Box>
-  );
-};
-
-const iiitdTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#2A9D8F",
-      light: "#4DB6A9",
-      dark: "#1E7268",
-      contrastText: "#FFFFFF",
-    },
-    secondary: {
-      main: "#264653",
-      light: "#3A5F6F",
-      dark: "#1A323C",
-      contrastText: "#FFFFFF",
-    },
-    background: {
-      default: "#F5F7F8",
-      paper: "#FFFFFF",
-    },
-    text: {
-      primary: "#333333",
-      secondary: "#5F6368",
-    },
-    divider: "#E0E0E0",
-  },
-  typography: {
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    h3: { fontWeight: 600, fontSize: "2rem", lineHeight: 1.2 },
-    h5: { fontWeight: 600, fontSize: "1.25rem", lineHeight: 1.4 },
-    h6: { fontWeight: 600, fontSize: "1rem", lineHeight: 1.4 },
-    body1: { fontSize: "1rem", lineHeight: 1.6 },
-    body2: { fontSize: "0.875rem", lineHeight: 1.6 },
-  },
-  shape: { borderRadius: 8 },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: "none",
-          borderRadius: 8,
-          fontWeight: 500,
-          padding: "8px 16px",
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: { borderRadius: 8, boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.05)" },
-      },
-    },
-    MuiChip: {
-      styleOverrides: { root: { fontWeight: 500 } },
-    },
-    MuiListItemButton: {
-      styleOverrides: { root: { borderRadius: 8 } },
-    },
-  },
-});
+import InnovatorsSection from "./InnovatorsSection";
+import ImageGalleryDialog from "./ImageGalleryDialog";
+import iiitdTheme from "./iiitdTheme";
 
 const LoadingState = () => (
   <Container
@@ -286,6 +66,16 @@ const LoadingState = () => (
 
 const API_BASE_URL = "https://192.168.1.148:5001";
 const DATA_API_BASE_URL = "https://192.168.1.148:4000";
+
+// Define patent statuses for conditional logic
+const PATENT_STATUSES = {
+  NOT_FILED: "Not Filed",
+  APPLICATION_FILED: "Application Filed",
+  UNDER_EXAMINATION: "Under Examination",
+  GRANTED: "Granted",
+  ABANDONED_LAPSED: "Abandoned/Lapsed",
+};
+
 
 function TechDetail() {
   const { id } = useParams();
@@ -600,6 +390,7 @@ function TechDetail() {
                   elevation={1}
                   sx={{
                     p: { xs: 2, sm: 3 },
+                    mb: 3, // Added margin bottom
                     bgcolor: "white",
                     wordBreak: "break-word",
                     position: "relative",
@@ -633,6 +424,110 @@ function TechDetail() {
                       "No overview available"}
                   </Typography>
                 </Paper>
+
+                {/* --- New Patent Information Section --- */}
+                {tech.patent && (
+                  <Paper
+                    elevation={1}
+                    sx={{
+                      p: { xs: 2, sm: 3 },
+                      mb: 3,
+                      bgcolor: "white",
+                      wordBreak: "break-word",
+                      position: "relative",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "4px",
+                        height: "100%",
+                        bgcolor: "primary.light",
+                      }}
+                    />
+                    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                      <GavelIcon sx={{ mr: 1, color: "primary.main" }} />
+                      <Typography variant="h5">Patent Information</Typography>
+                    </Box>
+                    <Divider sx={{ mb: 2 }} />
+                    <List dense disablePadding>
+                      {/* Patent Status */}
+                      <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
+                        <ListItemIcon sx={{ minWidth: 36 }}>
+                          <GavelIcon sx={{ color: "primary.main" }} fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText 
+                          primary="Status" 
+                          secondary={tech.patent} 
+                          primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }} 
+                          secondaryTypographyProps={{ variant: "body1", color: "text.primary", sx:{wordBreak: 'break-word'} }} 
+                        />
+                      </ListItem>
+
+                      {/* Application Number */}
+                      {(tech.patent === PATENT_STATUSES.APPLICATION_FILED || tech.patent === PATENT_STATUSES.UNDER_EXAMINATION || tech.patent === PATENT_STATUSES.GRANTED || tech.patent === PATENT_STATUSES.ABANDONED_LAPSED) && tech.patentApplicationNumber && (
+                        <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
+                          <ListItemIcon sx={{ minWidth: 36 }}><ConfirmationNumberIcon sx={{ color: "primary.main" }} fontSize="small" /></ListItemIcon>
+                          <ListItemText primary="Application Number" secondary={tech.patentApplicationNumber} primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }} secondaryTypographyProps={{ variant: "body1", color: "text.primary", sx:{wordBreak: 'break-word'} }} />
+                        </ListItem>
+                      )}
+
+                      {/* Filing Date */}
+                      {(tech.patent === PATENT_STATUSES.APPLICATION_FILED || tech.patent === PATENT_STATUSES.UNDER_EXAMINATION || tech.patent === PATENT_STATUSES.GRANTED || tech.patent === PATENT_STATUSES.ABANDONED_LAPSED) && tech.patentFilingDate && (
+                        <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
+                          <ListItemIcon sx={{ minWidth: 36 }}><DateRangeIcon sx={{ color: "primary.main" }} fontSize="small" /></ListItemIcon>
+                          <ListItemText primary="Filing Date" secondary={new Date(tech.patentFilingDate).toLocaleDateString()} primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }} secondaryTypographyProps={{ variant: "body1", color: "text.primary" }} />
+                        </ListItem>
+                      )}
+
+                      {/* Patent ID */}
+                      {(tech.patent === PATENT_STATUSES.GRANTED || tech.patent === PATENT_STATUSES.ABANDONED_LAPSED) && tech.patentId && (
+                        <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
+                          <ListItemIcon sx={{ minWidth: 36 }}><FingerprintIcon sx={{ color: "primary.main" }} fontSize="small" /></ListItemIcon>
+                          <ListItemText primary="Patent ID" secondary={tech.patentId} primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }} secondaryTypographyProps={{ variant: "body1", color: "text.primary", sx:{wordBreak: 'break-word'} }} />
+                        </ListItem>
+                      )}
+
+                      {/* Grant Date */}
+                      {(tech.patent === PATENT_STATUSES.GRANTED || tech.patent === PATENT_STATUSES.ABANDONED_LAPSED) && tech.patentGrantDate && (
+                        <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
+                          <ListItemIcon sx={{ minWidth: 36 }}><DateRangeIcon sx={{ color: "primary.main" }} fontSize="small" /></ListItemIcon>
+                          <ListItemText primary="Grant Date" secondary={new Date(tech.patentGrantDate).toLocaleDateString()} primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }} secondaryTypographyProps={{ variant: "body1", color: "text.primary" }} />
+                        </ListItem>
+                      )}
+
+                      {/* Document URL */}
+                      {tech.patent !== PATENT_STATUSES.NOT_FILED && tech.patentDocumentUrl && (
+                        <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
+                          <ListItemIcon sx={{ minWidth: 36 }}><LinkIcon sx={{ color: "primary.main" }} fontSize="small" /></ListItemIcon>
+                          <ListItemText 
+                            primary="Document" 
+                            primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }}
+                            secondary={
+                              <Button
+                                component="a"
+                                href={tech.patentDocumentUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                size="small"
+                                startIcon={<LinkIcon />}
+                                sx={{ textTransform: 'none', p: 0, justifyContent: 'flex-start', color: 'primary.main', '&:hover': { textDecoration: 'underline', bgcolor: 'transparent' }, wordBreak: 'break-all', textAlign: 'left' }}
+                              >
+                                {tech.patentDocumentUrl.length > 40 ? `${tech.patentDocumentUrl.substring(0,37)}...` : tech.patentDocumentUrl}
+                              </Button>
+                            } 
+                            secondaryTypographyProps={{ component: 'div' }}
+                          />
+                        </ListItem>
+                      )}
+                    </List>
+                  </Paper>
+                )}
+                {/* --- End of Patent Information Section --- */}
+
               </Grid>
 
               <Grid item xs={12} md={4}>
@@ -643,8 +538,8 @@ function TechDetail() {
                     bgcolor: "white",
                     wordBreak: "break-word",
                     position: "sticky",
-                    top: 16,
-                    overflow: "hidden",
+                    top: 16, // For sticky behavior on desktop
+                    overflow: "hidden", // Ensures content within paper respects padding
                   }}
                 >
                   <Box sx={{ mb: 3 }}>
@@ -686,27 +581,12 @@ function TechDetail() {
                       <Grid item xs={8}>
                         <Typography
                           variant="body2"
-                          sx={{ color: "text.primary" }}
+                          sx={{ color: "text.primary", wordBreak: 'break-word' }}
                         >
                           {tech.docket || "Not specified"}
                         </Typography>
                       </Grid>
-                      <Grid item xs={4}>
-                        <Typography
-                          variant="body2"
-                          sx={{ fontWeight: 500, color: "text.secondary" }}
-                        >
-                          Patent:
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={8}>
-                        <Typography
-                          variant="body2"
-                          sx={{ color: "text.primary" }}
-                        >
-                          {tech.patent || "Not specified"}
-                        </Typography>
-                      </Grid>
+                      {/* Old Patent display removed from here */}
                     </Grid>
                   </Box>
                   <Box sx={{ mb: 3 }}>
@@ -832,7 +712,7 @@ function TechDetail() {
                     <ListItemButton
                       key={`brochure-${index}-${brochure.url}`}
                       component="a"
-                      href={`${API_BASE_URL}${brochure.url}`}
+                      href={brochure.url.startsWith('http') ? brochure.url : `${API_BASE_URL}${brochure.url}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       sx={{
@@ -917,6 +797,7 @@ function TechDetail() {
                             bgcolor: "rgba(42, 157, 143, 0.05)",
                           },
                           wordBreak: "break-word",
+                          height: '100%' // Ensure consistent height for grid items
                         }}
                       >
                         <ListItemIcon>
@@ -1001,7 +882,7 @@ function TechDetail() {
                           }}
                         >
                           <img
-                            src={`${API_BASE_URL}${image.url}`}
+                            src={image.url.startsWith('http') ? image.url : `${API_BASE_URL}${image.url}`}
                             alt={
                               image.caption || `${tech.name} image ${index + 1}`
                             }
@@ -1087,7 +968,7 @@ function TechDetail() {
         currentIndex={currentImageIndex}
         handlePrev={handlePrevImage}
         handleNext={handleNextImage}
-        baseUrl={API_BASE_URL}
+        baseUrl={API_BASE_URL} 
       />
     </ThemeProvider>
   );

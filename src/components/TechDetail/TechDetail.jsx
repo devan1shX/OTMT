@@ -242,7 +242,6 @@ export default function TechDetail() {
     fetchTechDetails();
   }, [id]);
 
-  // Fetch related technologies based on the same genre
   useEffect(() => {
     if (tech) {
       const fetchRelatedTechs = async () => {

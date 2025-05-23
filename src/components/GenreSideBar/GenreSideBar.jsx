@@ -6,7 +6,6 @@ import biotechImg from "../../assets/Tech_Finder_Collections_Images/biotech.jpg"
 import cybersecurityImg from "../../assets/Tech_Finder_Collections_Images/cybersecurity.jpg";
 import cloudcomputingImg from "../../assets/Tech_Finder_Collections_Images/cloudComputing.jpg";
 import iotImg from "../../assets/Tech_Finder_Collections_Images/IOT.jpg";
-import "./GenreSideBar.css";
 
 const genreImages = {
   AI: aiImg,
@@ -23,8 +22,9 @@ const GenreSidebar = ({ handleGenreChange }) => {
     <Box
       sx={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-        gap: 2, mb: 5
+        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+        gap: 3,
+        mb: 5,
       }}
     >
       {Object.keys(genreImages).map((genre) => (
@@ -35,17 +35,20 @@ const GenreSidebar = ({ handleGenreChange }) => {
           onMouseLeave={() => setHoveredGenre(null)}
           sx={{
             cursor: "pointer",
-            height: "280px",
-            borderRadius: "1px",
-            position: "relative",
+            height: "300px",
+            borderRadius: "16px",
             overflow: "hidden",
-            padding: "25px",
+            position: "relative",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
-            color: "white",
-            textAlign: "left",
-            gap: "10px",
+            padding: "24px",
+            color: "#fff",
+            boxShadow: 3,
+            transition: "box-shadow 0.3s ease",
+            "&:hover": {
+              boxShadow: 6,
+            },
 
             "&::before": {
               content: '""',
@@ -54,31 +57,39 @@ const GenreSidebar = ({ handleGenreChange }) => {
               backgroundImage: `url(${genreImages[genre]})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              transition: "transform 0.3s ease-in-out",
+              transformOrigin: "center",
+              transition: "transform 0.4s ease",
               zIndex: 0,
-              willChange: "transform",
             },
 
             "&:hover::before": {
-              transform: "scale(1.2)",
+              transform: "scale(1.1)",
             },
 
             "&::after": {
               content: '""',
               position: "absolute",
               inset: 0,
-              background: "linear-gradient(to bottom, rgba(7, 0, 0, 0.8), #328D89)",
+              background: "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3))",
               zIndex: 1,
             },
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1, zIndex: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              zIndex: 2,
+              transition: "transform 0.3s ease",
+              transform: hoveredGenre === genre ? "translateX(4px)" : "none",
+            }}
+          >
             <Typography
-              variant="h4"
+              variant="h5"
               sx={{
-                fontWeight: "bold",
-                textShadow: "2px 2px 10px rgba(0, 0, 0, 0.5)",
-                transition: "text-decoration 0.3s ease",
+                fontWeight: 700,
+                textShadow: "0 2px 4px rgba(0,0,0,0.6)",
                 textDecoration: hoveredGenre === genre ? "underline" : "none",
               }}
             >
@@ -86,22 +97,25 @@ const GenreSidebar = ({ handleGenreChange }) => {
             </Typography>
             <ArrowForwardIos
               sx={{
-                fontSize: "24px",
-                transition: "opacity 0.3s ease",
+                fontSize: "20px",
                 opacity: hoveredGenre === genre ? 1 : 0,
+                transition: "opacity 0.3s ease",
               }}
             />
           </Box>
+
           <Typography
-            variant="body1"
+            variant="body2"
             sx={{
               zIndex: 2,
+              opacity: 0.85,
               maxWidth: "90%",
-              opacity: 0.9,
+              mt: 1,
+              fontSize: "0.95rem",
+              lineHeight: 1.4,
             }}
           >
-            Explore the latest innovations, trends, and breakthroughs in {genre}.
-            Stay informed about the future of this evolving field.
+            Discover innovations and breakthroughs in {genre}. Stay updated with emerging tech shaping the future.
           </Typography>
         </Box>
       ))}
