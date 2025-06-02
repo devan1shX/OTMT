@@ -979,30 +979,7 @@ export default function Home() {
           ></div>
 
         {/* Updated CTA Section */}
-        <Box className="journey-cta-section">
-        <Container>
-          <Box className="journey-cta-content">
-            <Typography variant="h2" className="journey-title">
-              Want to register your own technology ?
-            </Typography>
-            <Typography variant="body1" className="journey-subtitle">
-              Schedule a meeting with our experts to discuss your ideas and get started on your innovation journey.
-            </Typography>
-            <Box className="journey-buttons">
-              <a href={Schedule_meet_link} target="_blank" rel="noreferrer">
-              <Button variant="contained" className="contained schedule-button">
-                Schedule a Meeting
-              </Button>
-              </a>
-              <a href="./Our_Technology">
-              <Button variant="outlined" className=" outlined browse-button">
-                Browse Available Technologies
-              </Button>
-              </a>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
+        
         </section>
       </main>
     </div>
