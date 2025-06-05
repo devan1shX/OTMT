@@ -64,8 +64,8 @@ const LoadingState = () => (
   </Container>
 );
 
-const API_BASE_URL = "http://192.168.1.148:5001";
-const DATA_API_BASE_URL = "https://192.168.1.148:4000";
+const API_BASE_URL = "https://api.otmt.iiitd.edu.in/api";
+const DATA_API_BASE_URL = "https://api.otmt.iiitd.edu.in/api";
 
 // Define patent statuses for conditional logic
 const PATENT_STATUSES = {
