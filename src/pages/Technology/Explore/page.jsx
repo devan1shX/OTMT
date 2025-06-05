@@ -95,7 +95,7 @@ export default function ExploreTechnologiesPage() {
   const rowsPerPage = 8;
 
   useEffect(() => {
-    fetch("https://192.168.1.148:4000/technologies")
+    fetch("https://api.otmt.iiitd.edu.in/api/technologies")
       .then((res) => res.json())
       .then((data) => {
         setTechnologies(Array.isArray(data) ? data : []);
