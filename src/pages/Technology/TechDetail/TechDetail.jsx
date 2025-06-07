@@ -64,8 +64,8 @@ const LoadingState = () => (
   </Container>
 );
 
-const API_BASE_URL = "https://api.otmt.iiitd.edu.in/api";
-const DATA_API_BASE_URL = "https://api.otmt.iiitd.edu.in/api";
+const API_BASE_URL = "https://api.otmt.iiitd.edu.in/data";
+const DATA_API_BASE_URL = "https://api.otmt.iiitd.edu.in/data";
 
 // Define patent statuses for conditional logic
 const PATENT_STATUSES = {
