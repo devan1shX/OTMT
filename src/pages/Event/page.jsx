@@ -24,7 +24,7 @@ function EventsPage() {
   const [showMorePast, setShowMorePast] = useState(false);
 
   useEffect(() => {
-    fetch("https://api.otmt.iiitd.edu.in/api/events")
+    fetch("https://api.otmt.iiitd.edu.in/data/events")
       .then((res) => res.json())
       .then((data) => {
         // Sort events: upcoming first by date, then past by date descending
