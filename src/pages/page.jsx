@@ -22,17 +22,15 @@ import logo4 from "../assets/images/logo_4.jpg";
 
 import { Box, Typography, Container, Button } from "@mui/material";
 import { Schedule_meet_link, Submit_details_form } from "../assets/links";
-// Custom hook for parallax effect
+
 function useParallax(value, distance) {
   return useTransform(value, [0, 1], [-distance, distance]);
 }
-
 
 const handleScroll = () => {
   window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
 };
 
-// A simple Link component replacing Next.js Link
 const Link = ({ children, href, style: userStyle = {}, ...props }) => {
   return (
     <a
@@ -45,7 +43,6 @@ const Link = ({ children, href, style: userStyle = {}, ...props }) => {
   );
 };
 
-// 3D Card component
 const Card3D = ({ children, style: userStyle = {} }) => {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
@@ -88,7 +85,6 @@ const Card3D = ({ children, style: userStyle = {} }) => {
 };
 
 export default function Home() {
-  // Refs for scroll animations
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -101,11 +97,9 @@ export default function Home() {
     restDelta: 0.001,
   });
 
-  // Parallax values
   const heroImageY = useParallax(smoothScrollYProgress, -100);
   const heroTextY = useParallax(smoothScrollYProgress, 50);
 
-  // Staggered animation for services
   const staggeredContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -123,7 +117,6 @@ export default function Home() {
     },
   };
 
-  // State for animated counter
   const [count, setCount] = useState({
     projects: 0,
     partners: 0,
@@ -153,7 +146,6 @@ export default function Home() {
       }}
     >
       <main style={{ flex: 1, overflow: "hidden" }}>
-        {/* Hero Section with 3D elements and parallax */}
         <section
           style={{
             position: "relative",
@@ -163,7 +155,6 @@ export default function Home() {
             overflow: "hidden",
           }}
         >
-          {/* Abstract background elements */}
           <div
             style={{
               position: "absolute",
@@ -198,7 +189,6 @@ export default function Home() {
                 filter: "blur(40px)",
               }}
             ></div>
-            {/* Grid pattern */}
             <div
               style={{
                 position: "absolute",
@@ -209,7 +199,11 @@ export default function Home() {
                 opacity: 0.03,
               }}
             >
-              <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                width="100%"
+                height="100%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <defs>
                   <pattern
                     id="grid"
@@ -229,7 +223,6 @@ export default function Home() {
               </svg>
             </div>
 
-            {/* Floating geometric shapes */}
             <motion.div
               style={{
                 position: "absolute",
@@ -274,7 +267,6 @@ export default function Home() {
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
             />
           </div>
-
           <div
             style={{
               position: "relative",
@@ -336,14 +328,13 @@ export default function Home() {
                 >
                   <span style={{ display: "block" }}>Office of Technology</span>
                   <span style={{ display: "block", marginTop: "0.25rem" }}>
-                  Management and 
+                    Management and
                   </span>
                   <span
                     style={{
                       display: "block",
                       marginTop: "0.25rem",
-                      background:
-                        "linear-gradient(to right, #009393, #10b981)",
+                      background: "linear-gradient(to right, #009393, #10b981)",
                       WebkitBackgroundClip: "text",
                       color: "transparent",
                     }}
@@ -371,10 +362,17 @@ export default function Home() {
                     marginTop: "1rem",
                   }}
                 >
-                  <a href={Submit_details_form} target="_blank" rel="noreferrer">
-                  <Button variant="contained" className="contained schedule-button">
-                    Commercialise Your Technology
-                    <motion.div
+                  <a
+                    href={Submit_details_form}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Button
+                      variant="contained"
+                      className="contained schedule-button"
+                    >
+                      Commercialise Your Technology
+                      <motion.div
                         style={{ marginLeft: "0.5rem" }}
                         animate={{ x: [0, 4, 0] }}
                         transition={{
@@ -385,7 +383,7 @@ export default function Home() {
                       >
                         <ArrowRight size={16} />
                       </motion.div>
-                  </Button>
+                    </Button>
                   </a>
                 </div>
               </motion.div>
@@ -403,7 +401,6 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.2 }}
               >
-                {/* 3D Illustration */}
                 <div
                   style={{
                     position: "relative",
@@ -429,10 +426,8 @@ export default function Home() {
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
-                  >
-                  </motion.div>
+                  ></motion.div>
 
-                  {/* Floating elements */}
                   <motion.div
                     style={{
                       position: "absolute",
@@ -491,8 +486,6 @@ export default function Home() {
               </motion.div>
             </div>
           </div>
-
-          {/* Scroll indicator */}
           <motion.div
             style={{
               position: "absolute",
@@ -540,168 +533,20 @@ export default function Home() {
                   }}
                 />
               </div>
-              <span style={{ marginTop: "0.5rem", fontSize: "0.75rem", color: "#6b7280" }}>
+              <span
+                style={{
+                  marginTop: "0.5rem",
+                  fontSize: "0.75rem",
+                  color: "#6b7280",
+                }}
+              >
                 Scroll
               </span>
             </div>
-          </motion.div>;
+          </motion.div>
+          ;
         </section>
 
-        {/* Stats Counter Section */}
-        {/* <section
-          style={{
-            padding: "4rem 0",
-            background: "linear-gradient(to right, #f9fafb, #ffffff)",
-          }}
-        >
-          <div
-            style={{
-              maxWidth: "1200px",
-              margin: "0 auto",
-              padding: "0 1rem",
-            }}
-          >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "2rem",
-                textAlign: "center",
-              }}
-            >
-              {[
-                { value: count.projects, label: "Projects Completed", suffix: "+" },
-                { value: count.partners, label: "Industry Partners", suffix: "+" },
-                { value: count.years, label: "Years of Excellence", suffix: "" },
-              ].map((stat, index) => (
-                <div key={index}>
-                  <motion.h3
-                    style={{
-                      fontSize: "2.25rem",
-                      fontWeight: "bold",
-                      color: "#009393",
-                    }}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    {stat.value}
-                    {stat.suffix}
-                  </motion.h3>
-                  <motion.p
-                    style={{ marginTop: "0.5rem", color: "#6b7280" }}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                  >
-                    {stat.label}
-                  </motion.p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section> */}
-
-        {/* Partners Section with 3D effect */}
-        {/* <section
-          style={{
-            padding: "4rem 0",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: -10,
-              background:
-                "radial-gradient(circle at center, rgba(236,253,245,0.6) 0%, rgba(255,255,255,0) 70%)",
-            }}
-          ></div>
-
-          <motion.div
-            style={{
-              maxWidth: "1200px",
-              margin: "0 auto",
-              padding: "0 1rem",
-              opacity: 0,
-            }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-              <motion.h2
-                style={{ fontSize: "1.875rem", fontWeight: "bold" }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                Partners with Leading Organizations
-              </motion.h2>
-              <motion.div
-                style={{
-                  margin: "1rem auto",
-                  height: "0.25rem",
-                  width: "5rem",
-                  backgroundColor: "#009393",
-                }}
-                initial={{ width: 0 }}
-                whileInView={{ width: 80 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              />
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "3rem",
-              }}
-            >
-              {partners.map((partner) => (
-                <Card3D key={partner.name} style={{ height: "5rem", width: "10rem" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      height: "100%",
-                      width: "100%",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      borderRadius: "0.75rem",
-                      border: "1px solid #f3f4f6",
-                      backgroundColor: "white",
-                      padding: "1rem",
-                      boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
-                    }}
-                  >
-                    <img
-                      src={partner.logo || "/placeholder.svg"}
-                      alt={partner.name}
-                      style={{
-                        height: "2.5rem",
-                        width: "auto",
-                        transition: "all 0.5s ease",
-                      }}
-                    />
-                  </div>
-                </Card3D>
-              ))}
-            </div>
-          </motion.div>
-        </section> */}
-
-        {/* What We Do Section with interactive cards */}
         <section style={{ padding: "4rem 0", position: "relative" }}>
           <div
             style={{
@@ -727,7 +572,9 @@ export default function Home() {
             ></div>
           </div>
 
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1rem" }}>
+          <div
+            style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1rem" }}
+          >
             <motion.div
               style={{
                 textAlign: "center",
@@ -741,11 +588,24 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 style={{ fontSize: "2.25rem", fontWeight: "bold", letterSpacing: "-0.025em" }}>
+              <h2
+                style={{
+                  fontSize: "2.25rem",
+                  fontWeight: "bold",
+                  letterSpacing: "-0.025em",
+                }}
+              >
                 What We Do
               </h2>
-              <p style={{ marginTop: "1rem", fontSize: "1.125rem", color: "#6b7280" }}>
-                We provide comprehensive services to support your technology development journey
+              <p
+                style={{
+                  marginTop: "1rem",
+                  fontSize: "1.125rem",
+                  color: "#6b7280",
+                }}
+              >
+                We provide comprehensive services to support your technology
+                development journey
               </p>
             </motion.div>
 
@@ -761,7 +621,11 @@ export default function Home() {
               viewport={{ once: true }}
             >
               {services.map((service) => (
-                <motion.div key={service.title} style={{ position: "relative" }} variants={staggeredItemVariants}>
+                <motion.div
+                  key={service.title}
+                  style={{ position: "relative" }}
+                  variants={staggeredItemVariants}
+                >
                   <div
                     style={{
                       position: "relative",
@@ -774,7 +638,6 @@ export default function Home() {
                       transition: "all 0.5s ease",
                     }}
                   >
-                    {/* Background gradient that appears on hover (simplified) */}
                     <div
                       style={{
                         position: "absolute",
@@ -782,13 +645,13 @@ export default function Home() {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        background: "linear-gradient(to br, rgba(16,185,129,0.1), transparent)",
+                        background:
+                          "linear-gradient(to br, rgba(16,185,129,0.1), transparent)",
                         opacity: 0,
                         transition: "opacity 0.5s ease",
                       }}
                     ></div>
 
-                    {/* Animated icon */}
                     <div
                       style={{
                         marginBottom: "1.5rem",
@@ -803,17 +666,25 @@ export default function Home() {
                         transition: "all 0.3s ease",
                       }}
                     >
-                      <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.6, ease: "easeInOut" }}>
+                      <motion.div
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.6, ease: "easeInOut" }}
+                      >
                         <service.icon size={28} strokeWidth={1.5} />
                       </motion.div>
                     </div>
 
-                    <h3 style={{ marginBottom: "0.75rem", fontSize: "1.25rem", fontWeight: "600" }}>
+                    <h3
+                      style={{
+                        marginBottom: "0.75rem",
+                        fontSize: "1.25rem",
+                        fontWeight: "600",
+                      }}
+                    >
                       {service.title}
                     </h3>
                     <p style={{ color: "#6b7280" }}>{service.description}</p>
 
-                    {/* Animated arrow that appears on hover (simplified) */}
                     <div
                       style={{
                         marginTop: "1.5rem",
@@ -825,17 +696,24 @@ export default function Home() {
                       }}
                     >
                       <Button className="outlined">
-                        <Link href={service
-                          .href}>
-                          Learn more
-                        </Link>
-                        <ArrowRight size={16} style={{ marginLeft: "0.5rem" }} />
+                        <Link href={service.href}>Learn more</Link>
+                        <ArrowRight
+                          size={16}
+                          style={{ marginLeft: "0.5rem" }}
+                        />
                       </Button>
                       <motion.div
                         animate={{ x: [0, 5, 0] }}
-                        transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 1.5,
+                          ease: "easeInOut",
+                        }}
                       >
-                        <ArrowRight size={16} style={{ marginLeft: "0.5rem" }} />
+                        <ArrowRight
+                          size={16}
+                          style={{ marginLeft: "0.5rem" }}
+                        />
                       </motion.div>
                     </div>
                   </div>
@@ -845,9 +723,17 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Technology Highlights with 3D cards */}
-        <section style={{ padding: "4rem 0", background: "linear-gradient(to bottom, #ffffff, #f9fafb)" }}>
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1rem" }}>
+        <section
+          style={{
+            paddingTop: "2rem",
+            paddingBottom: "1rem",
+            background: "white",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1rem" }}
+          >
             <motion.div
               style={{
                 textAlign: "center",
@@ -861,11 +747,24 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 style={{ fontSize: "2.25rem", fontWeight: "bold", letterSpacing: "-0.025em" }}>
+              <h2
+                style={{
+                  fontSize: "2.25rem",
+                  fontWeight: "bold",
+                  letterSpacing: "-0.025em",
+                }}
+              >
                 Available Technologies
               </h2>
-              <p style={{ marginTop: "1rem", fontSize: "1.125rem", color: "#6b7280" }}>
-                Discover how we've helped transform innovative ideas into reality
+              <p
+                style={{
+                  marginTop: "1rem",
+                  fontSize: "1.125rem",
+                  color: "#6b7280",
+                }}
+              >
+                Discover how we've helped transform innovative ideas into
+                reality
               </p>
             </motion.div>
 
@@ -877,42 +776,90 @@ export default function Home() {
               }}
             >
               {highlights.map((highlight) => (
-                <Link href = {highlight.href}>
-                <Card3D key={highlight.title} style={{ height: "350px", position: "relative" }}>
-                  <div
-                    style={{
-                      position: "relative",
-                      height: "100%",
-                      width: "100%",
-                      overflow: "hidden",
-                      borderRadius: "1rem",
-                      boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                      transition: "all 0.5s ease",
-                    }}
-                  >
-                    <img
-                      src={highlight.image || "/placeholder.svg"}
-                      alt={highlight.title}
-                      style={{
-                        objectFit: "cover",
-                        width: "100%",
-                        height: "100%",
-                        transition: "transform 0.7s ease",
-                      }}
-                    />
-
-                    {/* Overlay that slides up on hover (simplified) */}
+                <Link href={highlight.href} key={highlight.title}>
+                  <Card3D style={{ height: "350px", position: "relative" }}>
                     <div
                       style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        background:
-                          "linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.6), transparent)",
+                        position: "relative",
+                        height: "100%",
+                        width: "100%",
+                        overflow: "hidden",
+                        borderRadius: "1rem",
+                        boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                        transition: "all 0.5s ease",
                       }}
                     >
+                      <img
+                        src={highlight.image || "/placeholder.svg"}
+                        alt={highlight.title}
+                        style={{
+                          objectFit: "cover",
+                          width: "100%",
+                          height: "100%",
+                          transition: "transform 0.7s ease",
+                        }}
+                      />
+
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background:
+                            "linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.6), transparent)",
+                        }}
+                      >
+                        <div
+                          style={{
+                            position: "absolute",
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            padding: "1.5rem",
+                            transform: "translateY(1rem)",
+                            opacity: 0,
+                            transition: "all 0.5s ease",
+                          }}
+                        >
+                          <h3
+                            style={{
+                              fontSize: "1.25rem",
+                              fontWeight: "600",
+                              color: "white",
+                            }}
+                          >
+                            {highlight.title}
+                          </h3>
+                          <p
+                            style={{
+                              marginTop: "0.5rem",
+                              fontSize: "0.875rem",
+                              color: "rgba(255,255,255,0.8)",
+                            }}
+                          >
+                            {highlight.description}
+                          </p>
+                          <Button
+                            style={{
+                              marginTop: "1rem",
+                              backgroundColor: "rgba(255,255,255,0.1)",
+                              color: "white",
+                              backdropFilter: "blur(4px)",
+                              border: "none",
+                              padding: "0.5rem 1rem",
+                            }}
+                          >
+                            Learn more
+                            <ArrowRight
+                              size={16}
+                              style={{ marginLeft: "0.5rem" }}
+                            />
+                          </Button>
+                        </div>
+                      </div>
+
                       <div
                         style={{
                           position: "absolute",
@@ -920,51 +867,34 @@ export default function Home() {
                           left: 0,
                           right: 0,
                           padding: "1.5rem",
-                          transform: "translateY(1rem)",
-                          opacity: 0,
-                          transition: "all 0.5s ease",
+                          transition: "transform 0.5s ease",
                         }}
                       >
-                        <h3 style={{ fontSize: "1.25rem", fontWeight: "600", color: "white" }}>
+                        <h3
+                          style={{
+                            fontSize: "1.25rem",
+                            fontWeight: "600",
+                            color: "white",
+                          }}
+                        >
                           {highlight.title}
                         </h3>
-                        <p style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "rgba(255,255,255,0.8)" }}>
-                          {highlight.description}
-                        </p>
-                        <Button style={{ marginTop: "1rem", backgroundColor: "rgba(255,255,255,0.1)", color: "white", backdropFilter: "blur(4px)", border: "none", padding: "0.5rem 1rem" }}>
-                          <Link href={highlight.href}>
-                            Learn more
-                            <ArrowRight size={16} style={{ marginLeft: "0.5rem" }} />
-                          </Link>
-                        </Button>
                       </div>
                     </div>
-
-                    {/* Title that's always visible but moves up on hover (simplified) */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        padding: "1.5rem",
-                        transition: "transform 0.5s ease",
-                      }}
-                    >
-                      <h3 style={{ fontSize: "1.25rem", fontWeight: "600", color: "white" }}>
-                        {highlight.title}
-                      </h3>
-                    </div>
-                  </div>
-                </Card3D>
+                  </Card3D>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Connect With Us - 3D perspective section */}
-        <section style={{ padding: "4rem 0", position: "relative", overflow: "hidden" }}>
+        <section
+          style={{
+            padding: "4rem 0",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
           <div
             style={{
               position: "absolute",
@@ -977,9 +907,6 @@ export default function Home() {
                 "radial-gradient(circle at center, rgba(236,253,245,0.8) 0%, rgba(255,255,255,0) 70%)",
             }}
           ></div>
-
-        {/* Updated CTA Section */}
-        
         </section>
       </main>
     </div>
