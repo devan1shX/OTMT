@@ -418,7 +418,7 @@ const StartupFacilitationPage = () => {
                   Schedule a Meeting
                 </Button>
               </a>
-              <a href="../Our_Technology">
+              <a href="../Explore_Technologies">
                 <Button className="outlined" size="large">
                   Browse Past Success Stories
                 </Button>
