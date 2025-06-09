@@ -1,29 +1,23 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link as RouterLink } from "react-router-dom";
+import React, { useEffect, useState, useCallback } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import ImageIcon from "@mui/icons-material/Image";
-import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import {
   Typography,
-  Avatar,
   Box,
   Button,
   Chip,
   CircularProgress,
   Container,
-  Dialog,
   Divider,
   Grid,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   Paper,
-  createTheme,
   ThemeProvider,
   useMediaQuery,
 } from "@mui/material";
@@ -32,19 +26,29 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CategoryIcon from "@mui/icons-material/Category";
-import CloseIcon from "@mui/icons-material/Close";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LinkIcon from "@mui/icons-material/Link";
-import SchoolIcon from "@mui/icons-material/School";
-import ArticleIcon from "@mui/icons-material/Article"; // For brochures section title
-import GavelIcon from "@mui/icons-material/Gavel"; // For Patent Status
-import FingerprintIcon from "@mui/icons-material/Fingerprint"; // For Patent ID
-import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber"; // For Patent App No.
-import DateRangeIcon from "@mui/icons-material/DateRange"; // For Dates
+import ArticleIcon from "@mui/icons-material/Article";
+import GavelIcon from "@mui/icons-material/Gavel";
+import FingerprintIcon from "@mui/icons-material/Fingerprint";
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import DateRangeIcon from "@mui/icons-material/DateRange";
+import ImageIcon from "@mui/icons-material/Image";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
 
 import InnovatorsSection from "./InnovatorsSection";
 import ImageGalleryDialog from "./ImageGalleryDialog";
 import iiitdTheme from "./iiitdTheme";
+
+const API_BASE_URL = "https://api.otmt.iiitd.edu.in/data";
+
+const PATENT_STATUSES = {
+  NOT_FILED: "Not Filed",
+  APPLICATION_FILED: "Application Filed",
+  UNDER_EXAMINATION: "Under Examination",
+  GRANTED: "Granted",
+  ABANDONED_LAPSED: "Abandoned/Lapsed",
+};
 
 const LoadingState = () => (
   <Container
@@ -56,7 +60,7 @@ const LoadingState = () => (
     }}
   >
     <Box sx={{ textAlign: "center" }}>
-      <CircularProgress size={60} sx={{ color: "#2A9D8F", mb: 2 }} />
+      <CircularProgress size={60} sx={{ color: "primary.main", mb: 2 }} />
       <Typography variant="h6" sx={{ color: "text.secondary" }}>
         Loading technology details...
       </Typography>
@@ -64,18 +68,86 @@ const LoadingState = () => (
   </Container>
 );
 
-const API_BASE_URL = "https://api.otmt.iiitd.edu.in/data";
-const DATA_API_BASE_URL = "https://api.otmt.iiitd.edu.in/data";
+const SectionPaper = ({ children, sx, ...props }) => (
+  <Paper
+    elevation={1}
+    sx={{
+      p: { xs: 2, sm: 3 },
+      mb: 3,
+      bgcolor: "white",
+      position: "relative",
+      overflow: "hidden",
+      ...sx,
+    }}
+    {...props}
+  >
+    <Box
+      sx={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "4px",
+        height: "100%",
+        bgcolor: "primary.light",
+      }}
+    />
+    {children}
+  </Paper>
+);
 
-// Define patent statuses for conditional logic
-const PATENT_STATUSES = {
-  NOT_FILED: "Not Filed",
-  APPLICATION_FILED: "Application Filed",
-  UNDER_EXAMINATION: "Under Examination",
-  GRANTED: "Granted",
-  ABANDONED_LAPSED: "Abandoned/Lapsed",
+const renderList = (items, itemIcon) => {
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    return (
+      <Typography
+        variant="body2"
+        sx={{ color: "text.secondary", fontStyle: "italic" }}
+      >
+        No information available
+      </Typography>
+    );
+  }
+
+  return (
+    <List dense disablePadding>
+      {items.map((item, index) => (
+        <ListItem
+          key={index}
+          disableGutters
+          sx={{
+            py: 0.75,
+            px: 1,
+            borderRadius: 1,
+            mb: 1,
+            bgcolor:
+              index % 2 === 0 ? "rgba(42, 157, 143, 0.05)" : "transparent",
+          }}
+        >
+          <ListItemIcon sx={{ minWidth: 28 }}>
+            {itemIcon ? (
+              React.cloneElement(itemIcon, {
+                sx: { color: "primary.main" },
+                fontSize: "small",
+              })
+            ) : (
+              <CheckCircleIcon
+                sx={{ color: "primary.main" }}
+                fontSize="small"
+              />
+            )}
+          </ListItemIcon>
+          <ListItemText
+            primary={item}
+            primaryTypographyProps={{
+              variant: "body2",
+              color: "text.primary",
+              sx: { wordBreak: "break-word" },
+            }}
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
 };
-
 
 function TechDetail() {
   const { id } = useParams();
@@ -92,7 +164,7 @@ function TechDetail() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`${DATA_API_BASE_URL}/technologies/${id}`);
+        const res = await fetch(`${API_BASE_URL}/technologies/${id}`);
         if (!res.ok) {
           const errData = await res
             .json()
@@ -117,80 +189,28 @@ function TechDetail() {
     fetchTechDetails();
   }, [id]);
 
-  const handleOpenGallery = (index) => {
+  const handleOpenGallery = useCallback((index) => {
     setCurrentImageIndex(index);
     setOpenGallery(true);
-  };
+  }, []);
 
-  const handleCloseGallery = () => {
+  const handleCloseGallery = useCallback(() => {
     setOpenGallery(false);
-  };
+  }, []);
 
-  const handlePrevImage = () => {
+  const handlePrevImage = useCallback(() => {
+    if (!tech) return;
     setCurrentImageIndex((prev) =>
       prev === 0 ? tech.images.length - 1 : prev - 1
     );
-  };
+  }, [tech]);
 
-  const handleNextImage = () => {
+  const handleNextImage = useCallback(() => {
+    if (!tech) return;
     setCurrentImageIndex((prev) =>
       prev === tech.images.length - 1 ? 0 : prev + 1
     );
-  };
-
-  const renderList = (items, itemIcon) => {
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return (
-        <Typography
-          variant="body2"
-          sx={{ color: "text.secondary", fontStyle: "italic" }}
-        >
-          No information available
-        </Typography>
-      );
-    }
-
-    return (
-      <List dense disablePadding>
-        {items.map((item, index) => (
-          <ListItem
-            key={index}
-            disableGutters
-            sx={{
-              py: 0.75,
-              px: 1,
-              borderRadius: 1,
-              mb: 1,
-              bgcolor:
-                index % 2 === 0 ? "rgba(42, 157, 143, 0.05)" : "transparent",
-            }}
-          >
-            <ListItemIcon sx={{ minWidth: 28 }}>
-              {itemIcon ? (
-                React.cloneElement(itemIcon, {
-                  sx: { color: "primary.main" },
-                  fontSize: "small",
-                })
-              ) : (
-                <CheckCircleIcon
-                  sx={{ color: "primary.main" }}
-                  fontSize="small"
-                />
-              )}
-            </ListItemIcon>
-            <ListItemText
-              primary={item}
-              primaryTypographyProps={{
-                variant: "body2",
-                color: "text.primary",
-                wordBreak: "break-word",
-              }}
-            />
-          </ListItem>
-        ))}
-      </List>
-    );
-  };
+  }, [tech]);
 
   if (loading) {
     return (
@@ -214,7 +234,12 @@ function TechDetail() {
         >
           <Paper
             elevation={1}
-            sx={{ p: 4, maxWidth: 500, mx: "auto", wordBreak: "break-word" }}
+            sx={{
+              p: 4,
+              maxWidth: 500,
+              mx: "auto",
+              sx: { wordBreak: "break-word" },
+            }}
           >
             <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
               {error ? "Error Loading Technology" : "Technology Not Found"}
@@ -237,6 +262,21 @@ function TechDetail() {
     );
   }
 
+  const heroTextStyles = {
+    overflowWrap: "break-word",
+    wordBreak: "break-word",
+    maxWidth: "100%",
+    whiteSpace: "normal",
+  };
+
+  const showPatentAppDetails =
+    tech.patent && tech.patent !== PATENT_STATUSES.NOT_FILED;
+  const showPatentGrantDetails =
+    tech.patent &&
+    [PATENT_STATUSES.GRANTED, PATENT_STATUSES.ABANDONED_LAPSED].includes(
+      tech.patent
+    );
+
   return (
     <ThemeProvider theme={iiitdTheme}>
       <Box sx={{ bgcolor: "white", minHeight: "100vh" }}>
@@ -249,47 +289,28 @@ function TechDetail() {
               <Typography
                 variant="overline"
                 className="service-label"
-                sx={{
-                  mr: 1,
-                  overflowWrap: "break-word",
-                  wordBreak: "break-word",
-                  maxWidth: "100%",
-                }}
+                sx={{ ...heroTextStyles, mr: 1 }}
               >
                 {tech.docket}
               </Typography>
               <Typography
                 variant="overline"
                 className="service-label"
-                sx={{
-                  overflowWrap: "break-word",
-                  wordBreak: "break-word",
-                  maxWidth: "100%",
-                }}
+                sx={heroTextStyles}
               >
                 TRL: {tech.trl}
               </Typography>
               <Typography
                 variant="h1"
                 className="hero-title"
-                sx={{
-                  overflowWrap: "break-word",
-                  wordBreak: "break-word",
-                  maxWidth: "100%",
-                  whiteSpace: "normal",
-                }}
+                sx={heroTextStyles}
               >
                 {tech.name}
               </Typography>
               <Typography
                 variant="body1"
                 className="hero-description"
-                sx={{
-                  overflowWrap: "break-word",
-                  wordBreak: "break-word",
-                  maxWidth: "100%",
-                  whiteSpace: "normal",
-                }}
+                sx={heroTextStyles}
               >
                 {tech.overview ||
                   tech.description ||
@@ -310,27 +331,7 @@ function TechDetail() {
           >
             <Grid container spacing={3}>
               <Grid item xs={12} md={8}>
-                <Paper
-                  elevation={1}
-                  sx={{
-                    p: { xs: 2, sm: 3 },
-                    mb: 3,
-                    bgcolor: "white",
-                    wordBreak: "break-word",
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "4px",
-                      height: "100%",
-                      bgcolor: "primary.light",
-                    }}
-                  />
+                <SectionPaper>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                     <DescriptionIcon sx={{ mr: 1, color: "primary.main" }} />
                     <Typography variant="h5">Description</Typography>
@@ -346,28 +347,9 @@ function TechDetail() {
                     {tech.detailedDescription ||
                       "No detailed description available"}
                   </Typography>
-                </Paper>
-                <Paper
-                  elevation={1}
-                  sx={{
-                    p: { xs: 2, sm: 3 },
-                    mb: 3,
-                    bgcolor: "white",
-                    wordBreak: "break-word",
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "4px",
-                      height: "100%",
-                      bgcolor: "primary.light",
-                    }}
-                  />
+                </SectionPaper>
+
+                <SectionPaper>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                     <DescriptionIcon sx={{ mr: 1, color: "primary.main" }} />
                     <Typography variant="h5">
@@ -385,28 +367,9 @@ function TechDetail() {
                     {tech.technicalSpecifications ||
                       "No technical specifications available"}
                   </Typography>
-                </Paper>
-                <Paper
-                  elevation={1}
-                  sx={{
-                    p: { xs: 2, sm: 3 },
-                    mb: 3, // Added margin bottom
-                    bgcolor: "white",
-                    wordBreak: "break-word",
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "4px",
-                      height: "100%",
-                      bgcolor: "primary.light",
-                    }}
-                  />
+                </SectionPaper>
+
+                <SectionPaper>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                     <DescriptionIcon sx={{ mr: 1, color: "primary.main" }} />
                     <Typography variant="h5">Overview</Typography>
@@ -423,89 +386,156 @@ function TechDetail() {
                       tech.description ||
                       "No overview available"}
                   </Typography>
-                </Paper>
+                </SectionPaper>
 
-                {/* --- New Patent Information Section --- */}
                 {tech.patent && (
-                  <Paper
-                    elevation={1}
-                    sx={{
-                      p: { xs: 2, sm: 3 },
-                      mb: 3,
-                      bgcolor: "white",
-                      wordBreak: "break-word",
-                      position: "relative",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "4px",
-                        height: "100%",
-                        bgcolor: "primary.light",
-                      }}
-                    />
+                  <SectionPaper>
                     <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                       <GavelIcon sx={{ mr: 1, color: "primary.main" }} />
                       <Typography variant="h5">Patent Information</Typography>
                     </Box>
                     <Divider sx={{ mb: 2 }} />
                     <List dense disablePadding>
-                      {/* Patent Status */}
                       <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
                         <ListItemIcon sx={{ minWidth: 36 }}>
-                          <GavelIcon sx={{ color: "primary.main" }} fontSize="small" />
+                          <GavelIcon
+                            sx={{ color: "primary.main" }}
+                            fontSize="small"
+                          />
                         </ListItemIcon>
-                        <ListItemText 
-                          primary="Status" 
-                          secondary={tech.patent} 
-                          primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }} 
-                          secondaryTypographyProps={{ variant: "body1", color: "text.primary", sx:{wordBreak: 'break-word'} }} 
+                        <ListItemText
+                          primary="Status"
+                          secondary={tech.patent}
+                          primaryTypographyProps={{
+                            variant: "body2",
+                            fontWeight: 500,
+                            color: "text.secondary",
+                          }}
+                          secondaryTypographyProps={{
+                            variant: "body1",
+                            color: "text.primary",
+                            sx: { wordBreak: "break-word" },
+                          }}
                         />
                       </ListItem>
 
-                      {/* Application Number */}
-                      {(tech.patent === PATENT_STATUSES.APPLICATION_FILED || tech.patent === PATENT_STATUSES.UNDER_EXAMINATION || tech.patent === PATENT_STATUSES.GRANTED || tech.patent === PATENT_STATUSES.ABANDONED_LAPSED) && tech.patentApplicationNumber && (
+                      {showPatentAppDetails && tech.patentApplicationNumber && (
                         <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
-                          <ListItemIcon sx={{ minWidth: 36 }}><ConfirmationNumberIcon sx={{ color: "primary.main" }} fontSize="small" /></ListItemIcon>
-                          <ListItemText primary="Application Number" secondary={tech.patentApplicationNumber} primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }} secondaryTypographyProps={{ variant: "body1", color: "text.primary", sx:{wordBreak: 'break-word'} }} />
+                          <ListItemIcon sx={{ minWidth: 36 }}>
+                            <ConfirmationNumberIcon
+                              sx={{ color: "primary.main" }}
+                              fontSize="small"
+                            />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary="Application Number"
+                            secondary={tech.patentApplicationNumber}
+                            primaryTypographyProps={{
+                              variant: "body2",
+                              fontWeight: 500,
+                              color: "text.secondary",
+                            }}
+                            secondaryTypographyProps={{
+                              variant: "body1",
+                              color: "text.primary",
+                              sx: { wordBreak: "break-word" },
+                            }}
+                          />
                         </ListItem>
                       )}
 
-                      {/* Filing Date */}
-                      {(tech.patent === PATENT_STATUSES.APPLICATION_FILED || tech.patent === PATENT_STATUSES.UNDER_EXAMINATION || tech.patent === PATENT_STATUSES.GRANTED || tech.patent === PATENT_STATUSES.ABANDONED_LAPSED) && tech.patentFilingDate && (
+                      {showPatentAppDetails && tech.patentFilingDate && (
                         <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
-                          <ListItemIcon sx={{ minWidth: 36 }}><DateRangeIcon sx={{ color: "primary.main" }} fontSize="small" /></ListItemIcon>
-                          <ListItemText primary="Filing Date" secondary={new Date(tech.patentFilingDate).toLocaleDateString()} primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }} secondaryTypographyProps={{ variant: "body1", color: "text.primary" }} />
+                          <ListItemIcon sx={{ minWidth: 36 }}>
+                            <DateRangeIcon
+                              sx={{ color: "primary.main" }}
+                              fontSize="small"
+                            />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary="Filing Date"
+                            secondary={new Date(
+                              tech.patentFilingDate
+                            ).toLocaleDateString()}
+                            primaryTypographyProps={{
+                              variant: "body2",
+                              fontWeight: 500,
+                              color: "text.secondary",
+                            }}
+                            secondaryTypographyProps={{
+                              variant: "body1",
+                              color: "text.primary",
+                            }}
+                          />
                         </ListItem>
                       )}
 
-                      {/* Patent ID */}
-                      {(tech.patent === PATENT_STATUSES.GRANTED || tech.patent === PATENT_STATUSES.ABANDONED_LAPSED) && tech.patentId && (
+                      {showPatentGrantDetails && tech.patentId && (
                         <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
-                          <ListItemIcon sx={{ minWidth: 36 }}><FingerprintIcon sx={{ color: "primary.main" }} fontSize="small" /></ListItemIcon>
-                          <ListItemText primary="Patent ID" secondary={tech.patentId} primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }} secondaryTypographyProps={{ variant: "body1", color: "text.primary", sx:{wordBreak: 'break-word'} }} />
+                          <ListItemIcon sx={{ minWidth: 36 }}>
+                            <FingerprintIcon
+                              sx={{ color: "primary.main" }}
+                              fontSize="small"
+                            />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary="Patent ID"
+                            secondary={tech.patentId}
+                            primaryTypographyProps={{
+                              variant: "body2",
+                              fontWeight: 500,
+                              color: "text.secondary",
+                            }}
+                            secondaryTypographyProps={{
+                              variant: "body1",
+                              color: "text.primary",
+                              sx: { wordBreak: "break-word" },
+                            }}
+                          />
                         </ListItem>
                       )}
 
-                      {/* Grant Date */}
-                      {(tech.patent === PATENT_STATUSES.GRANTED || tech.patent === PATENT_STATUSES.ABANDONED_LAPSED) && tech.patentGrantDate && (
+                      {showPatentGrantDetails && tech.patentGrantDate && (
                         <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
-                          <ListItemIcon sx={{ minWidth: 36 }}><DateRangeIcon sx={{ color: "primary.main" }} fontSize="small" /></ListItemIcon>
-                          <ListItemText primary="Grant Date" secondary={new Date(tech.patentGrantDate).toLocaleDateString()} primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }} secondaryTypographyProps={{ variant: "body1", color: "text.primary" }} />
+                          <ListItemIcon sx={{ minWidth: 36 }}>
+                            <DateRangeIcon
+                              sx={{ color: "primary.main" }}
+                              fontSize="small"
+                            />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary="Grant Date"
+                            secondary={new Date(
+                              tech.patentGrantDate
+                            ).toLocaleDateString()}
+                            primaryTypographyProps={{
+                              variant: "body2",
+                              fontWeight: 500,
+                              color: "text.secondary",
+                            }}
+                            secondaryTypographyProps={{
+                              variant: "body1",
+                              color: "text.primary",
+                            }}
+                          />
                         </ListItem>
                       )}
 
-                      {/* Document URL */}
-                      {tech.patent !== PATENT_STATUSES.NOT_FILED && tech.patentDocumentUrl && (
+                      {showPatentAppDetails && tech.patentDocumentUrl && (
                         <ListItem disableGutters sx={{ py: 0.75, px: 1 }}>
-                          <ListItemIcon sx={{ minWidth: 36 }}><LinkIcon sx={{ color: "primary.main" }} fontSize="small" /></ListItemIcon>
-                          <ListItemText 
-                            primary="Document" 
-                            primaryTypographyProps={{ variant: "body2", fontWeight: 500, color: "text.secondary" }}
+                          <ListItemIcon sx={{ minWidth: 36 }}>
+                            <LinkIcon
+                              sx={{ color: "primary.main" }}
+                              fontSize="small"
+                            />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary="Document"
+                            primaryTypographyProps={{
+                              variant: "body2",
+                              fontWeight: 500,
+                              color: "text.secondary",
+                            }}
                             secondary={
                               <Button
                                 component="a"
@@ -514,20 +544,34 @@ function TechDetail() {
                                 rel="noopener noreferrer"
                                 size="small"
                                 startIcon={<LinkIcon />}
-                                sx={{ textTransform: 'none', p: 0, justifyContent: 'flex-start', color: 'primary.main', '&:hover': { textDecoration: 'underline', bgcolor: 'transparent' }, wordBreak: 'break-all', textAlign: 'left' }}
+                                sx={{
+                                  textTransform: "none",
+                                  p: 0,
+                                  justifyContent: "flex-start",
+                                  color: "primary.main",
+                                  "&:hover": {
+                                    textDecoration: "underline",
+                                    bgcolor: "transparent",
+                                  },
+                                  wordBreak: "break-all",
+                                  textAlign: "left",
+                                }}
                               >
-                                {tech.patentDocumentUrl.length > 40 ? `${tech.patentDocumentUrl.substring(0,37)}...` : tech.patentDocumentUrl}
+                                {tech.patentDocumentUrl.length > 40
+                                  ? `${tech.patentDocumentUrl.substring(
+                                      0,
+                                      37
+                                    )}...`
+                                  : tech.patentDocumentUrl}
                               </Button>
-                            } 
-                            secondaryTypographyProps={{ component: 'div' }}
+                            }
+                            secondaryTypographyProps={{ component: "div" }}
                           />
                         </ListItem>
                       )}
                     </List>
-                  </Paper>
+                  </SectionPaper>
                 )}
-                {/* --- End of Patent Information Section --- */}
-
               </Grid>
 
               <Grid item xs={12} md={4}>
@@ -536,10 +580,9 @@ function TechDetail() {
                   sx={{
                     p: { xs: 2, sm: 3 },
                     bgcolor: "white",
-                    wordBreak: "break-word",
                     position: "sticky",
-                    top: 16, // For sticky behavior on desktop
-                    overflow: "hidden", // Ensures content within paper respects padding
+                    top: 16,
+                    overflow: "hidden",
                   }}
                 >
                   <Box sx={{ mb: 3 }}>
@@ -581,17 +624,21 @@ function TechDetail() {
                       <Grid item xs={8}>
                         <Typography
                           variant="body2"
-                          sx={{ color: "text.primary", wordBreak: 'break-word' }}
+                          sx={{
+                            color: "text.primary",
+                            wordBreak: "break-word",
+                          }}
                         >
                           {tech.docket || "Not specified"}
                         </Typography>
                       </Grid>
-                      {/* Old Patent display removed from here */}
                     </Grid>
                   </Box>
+
                   <Box sx={{ mb: 3 }}>
                     <InnovatorsSection tech={tech} />
                   </Box>
+
                   <Box>
                     <Box
                       sx={{ display: "flex", alignItems: "center", mb: 1.5 }}
@@ -602,6 +649,7 @@ function TechDetail() {
                     <Divider sx={{ mb: 2 }} />
                     {renderList(tech.advantages, <CheckCircleIcon />)}
                   </Box>
+
                   {isMobile && (
                     <Box sx={{ mt: 3 }}>
                       <Button
@@ -621,87 +669,29 @@ function TechDetail() {
 
             <Grid container spacing={3} sx={{ mt: 0.5 }}>
               <Grid item xs={12} md={6}>
-                <Paper
-                  elevation={1}
-                  sx={{
-                    p: { xs: 2, sm: 3 },
-                    bgcolor: "white",
-                    wordBreak: "break-word",
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "4px",
-                      height: "100%",
-                      bgcolor: "primary.light",
-                    }}
-                  />
+                <SectionPaper sx={{ mb: { xs: 3, md: 0 } }}>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                     <CheckCircleIcon sx={{ mr: 1, color: "primary.main" }} />
                     <Typography variant="h5">Applications</Typography>
                   </Box>
                   <Divider sx={{ mb: 2 }} />
                   {renderList(tech.applications, <CheckCircleIcon />)}
-                </Paper>
+                </SectionPaper>
               </Grid>
               <Grid item xs={12} md={6}>
-                <Paper
-                  elevation={1}
-                  sx={{
-                    p: { xs: 2, sm: 3 },
-                    bgcolor: "white",
-                    wordBreak: "break-word",
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "4px",
-                      height: "100%",
-                      bgcolor: "primary.light",
-                    }}
-                  />
+                <SectionPaper sx={{ mb: { xs: 3, md: 0 } }}>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                     <CheckCircleIcon sx={{ mr: 1, color: "primary.main" }} />
                     <Typography variant="h5">Use Cases</Typography>
                   </Box>
                   <Divider sx={{ mb: 2 }} />
                   {renderList(tech.useCases, <CheckCircleIcon />)}
-                </Paper>
+                </SectionPaper>
               </Grid>
             </Grid>
 
             {tech.brochures && tech.brochures.length > 0 && (
-              <Paper
-                elevation={1}
-                sx={{
-                  mt: 3,
-                  p: { xs: 2, sm: 3 },
-                  bgcolor: "white",
-                  borderRadius: 2,
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "4px",
-                    height: "100%",
-                    bgcolor: "primary.light",
-                  }}
-                />
+              <SectionPaper sx={{ mt: 3, borderRadius: 2 }}>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   <ArticleIcon sx={{ mr: 1, color: "primary.main" }} />
                   <Typography variant="h5">Brochures & Documents</Typography>
@@ -712,7 +702,11 @@ function TechDetail() {
                     <ListItemButton
                       key={`brochure-${index}-${brochure.url}`}
                       component="a"
-                      href={brochure.url.startsWith('http') ? brochure.url : `${API_BASE_URL}${brochure.url}`}
+                      href={
+                        brochure.url.startsWith("http")
+                          ? brochure.url
+                          : `${API_BASE_URL}${brochure.url}`
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       sx={{
@@ -749,31 +743,11 @@ function TechDetail() {
                     </ListItemButton>
                   ))}
                 </List>
-              </Paper>
+              </SectionPaper>
             )}
 
             {tech.relatedLinks && tech.relatedLinks.length > 0 && (
-              <Paper
-                elevation={1}
-                sx={{
-                  mt: 3,
-                  p: { xs: 2, sm: 3 },
-                  bgcolor: "white",
-                  wordBreak: "break-word",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "4px",
-                    height: "100%",
-                    bgcolor: "primary.light",
-                  }}
-                />
+              <SectionPaper sx={{ mt: 3 }}>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   <LinkIcon sx={{ mr: 1, color: "primary.main" }} />
                   <Typography variant="h5">Related Links</Typography>
@@ -797,7 +771,7 @@ function TechDetail() {
                             bgcolor: "rgba(42, 157, 143, 0.05)",
                           },
                           wordBreak: "break-word",
-                          height: '100%' // Ensure consistent height for grid items
+                          height: "100%",
                         }}
                       >
                         <ListItemIcon>
@@ -808,39 +782,18 @@ function TechDetail() {
                           primaryTypographyProps={{
                             variant: "body2",
                             fontWeight: 500,
-                            wordBreak: "break-word",
+                            sx: { wordBreak: "break-word" },
                           }}
                         />
                       </ListItemButton>
                     </Grid>
                   ))}
                 </Grid>
-              </Paper>
+              </SectionPaper>
             )}
 
             {tech.images && tech.images.length > 0 && (
-              <Paper
-                elevation={1}
-                sx={{
-                  mt: 3,
-                  p: { xs: 2, sm: 3 },
-                  bgcolor: "white",
-                  wordBreak: "break-word",
-                  position: "relative",
-                  overflow: "hidden",
-                  borderRadius: 2,
-                }}
-              >
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "4px",
-                    height: "100%",
-                    bgcolor: "primary.light",
-                  }}
-                />
+              <SectionPaper sx={{ mt: 3, borderRadius: 2 }}>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   <ImageIcon sx={{ mr: 1, color: "primary.main" }} />
                   <Typography variant="h5">Gallery</Typography>
@@ -882,7 +835,11 @@ function TechDetail() {
                           }}
                         >
                           <img
-                            src={image.url.startsWith('http') ? image.url : `${API_BASE_URL}${image.url}`}
+                            src={
+                              image.url.startsWith("http")
+                                ? image.url
+                                : `${API_BASE_URL}${image.url}`
+                            }
                             alt={
                               image.caption || `${tech.name} image ${index + 1}`
                             }
@@ -929,15 +886,14 @@ function TechDetail() {
                               lineHeight: 1.3,
                             }}
                           >
-                            {" "}
-                            {image.caption}{" "}
+                            {image.caption}
                           </Typography>
                         )}
                       </motion.div>
                     </Grid>
                   ))}
                 </Grid>
-              </Paper>
+              </SectionPaper>
             )}
 
             {!isMobile && (
@@ -968,7 +924,7 @@ function TechDetail() {
         currentIndex={currentImageIndex}
         handlePrev={handlePrevImage}
         handleNext={handleNextImage}
-        baseUrl={API_BASE_URL} 
+        baseUrl={API_BASE_URL}
       />
     </ThemeProvider>
   );
