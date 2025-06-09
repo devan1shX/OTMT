@@ -44,7 +44,6 @@ const services = [
   }
 ];
 
-// IPR MANAGEMENT
 const faqs = [
   {
     question: "What is IPR, and why is it important for innovation?",
@@ -96,7 +95,6 @@ const faqs = [
 const InnovationPage = () => {
   return (
     <Box className="innovation-page">
-      {/* Hero Section */}
       <Box className="hero-section">
         <Container maxWidth="lg">
           <Box className="hero-content">
@@ -111,26 +109,25 @@ const InnovationPage = () => {
             </Typography>
             <Box className="hero-buttons">
               <a href={Schedule_meet_link} target="_blank" rel="noreferrer">
-              <Button className="contained" color="primary" size="large">
-                Schedule a Meeting
-              </Button>
+                <Button className="contained" color="primary" size="large">
+                  Schedule a Meeting
+                </Button>
               </a>
               <a href={IP_disclosure_form} target="_blank" rel="noreferrer">
-              <Button className="outlined" size="large">
-                Apply for IPR
-              </Button>
+                <Button className="outlined" size="large">
+                  Apply for IPR
+                </Button>
               </a>
               <a href={Policies} target="_blank" rel="noreferrer">
-              <Button className="outlined" size="large">
-                IPR Policies
-              </Button>
+                <Button className="outlined" size="large">
+                  IPR Policies
+                </Button>
               </a>
             </Box>
           </Box>
         </Container>
       </Box>
 
-      {/* Services Grid */}
       <Container maxWidth="lg" className="services-section">
         <Grid container spacing={3}>
           {services.map((service) => {
@@ -158,7 +155,6 @@ const InnovationPage = () => {
         </Grid>
       </Container>
 
-      {/* CTA Section */}
       <Box className="cta-section">
         <Container maxWidth="lg">
           <Box className="cta-content">
@@ -170,30 +166,49 @@ const InnovationPage = () => {
             </Typography>
             <Box className="cta-buttons">
               <a href={Schedule_meet_link} target="_blank" rel="noreferrer">
-              <Button className="contained" color="primary" size="large">
-                Schedule a Meeting
-              </Button>
+                <Button className="contained" color="primary" size="large">
+                  Schedule a Meeting
+                </Button>
               </a>
-              <a href='../Our_Technology'>
-              <Button className="outlined" size="large">
-                Browse Past Success Stories
-              </Button>
+              <a href='../Explore_Technologies'>
+                <Button className="outlined" size="large">
+                  Browse Past Success Stories
+                </Button>
               </a>
             </Box>
           </Box>
         </Container>
       </Box>
 
-      {/* FAQ Section */}
       <Container maxWidth="lg" className="faq-section">
-        <Typography variant="h2" align="center" className="faq-title">
+        <Typography
+          variant="h2"
+          align="center"
+          className="faq-title"
+          sx={{
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+            mb: { xs: 4, md: 6 },
+          }}
+        >
           Frequently Asked Questions
         </Typography>
-        <Box className="faq-container">
+        <Box
+          className="faq-container"
+          sx={{
+            maxWidth: "800px",
+            margin: "0 auto",
+          }}
+        >
           {faqs.map((faq, index) => (
             <Accordion key={index} className="faq-accordion">
               <AccordionSummary expandIcon={<ExpandMore />}>
-                <Typography variant="h6" className="faq-question">{faq.question}</Typography>
+                <Typography
+                  variant="h6"
+                  className="faq-question"
+                  sx={{ fontSize: { xs: "1rem", sm: "1.125rem" } }}
+                >
+                  {faq.question}
+                </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography className="faq-answer">{faq.answer}</Typography>
