@@ -40,7 +40,7 @@ import InnovatorsSection from "./InnovatorsSection";
 import ImageGalleryDialog from "./ImageGalleryDialog";
 import iiitdTheme from "./iiitdTheme";
 
-const API_BASE_URL = "https://api.otmt.iiitd.edu.in/data";
+const API_BASE_URL = "https://otmt.iiitd.edu.in/data";
 
 const PATENT_STATUSES = {
   NOT_FILED: "Not Filed",
