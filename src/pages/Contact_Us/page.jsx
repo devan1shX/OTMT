@@ -334,7 +334,7 @@ const ContactPage = () => {
             >
               <Box sx={{ height: "100%", position: "relative" }}>
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.022982382903!2d77.27318617527653!3d28.569033975704834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3e564113521%3A0x535916f1c734b868!2sIndraprastha%20Institute%2Fof%20Information%20Technology%20Delhi!5e0!3m2!1sen!2sin!4v1717818987013!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.795735513433!2d77.27060127495358!3d28.545858788012257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3e564daac1d%3A0x2c582e340e7bc556!2sIndraprastha%20Institute%20of%20Information%20Technology%20Delhi!5e0!3m2!1sen!2sin!4v1749703926298!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0, position: "absolute", top: 0, left: 0 }}
