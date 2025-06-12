@@ -145,11 +145,29 @@ function EventsPage() {
                         zIndex: 1,
                       }}
                     >
-                      <Typography variant="h5" fontWeight="bold">
+                      <Typography 
+                        variant="h5" 
+                        fontWeight="bold"
+                        sx={{ 
+                          fontSize: '1.2rem',
+                          lineHeight: 1,
+                          textAlign: 'center'
+                        }}
+                      >
                         {event.day}
                       </Typography>
-                      <Typography variant="caption" fontWeight="medium">
-                        {event.month}
+                      <Typography 
+                        variant="caption" 
+                        fontWeight="medium"
+                        sx={{ 
+                          fontSize: '0.65rem',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          textAlign: 'center',
+                          mt: 0.25
+                        }}
+                      >
+                        {event.month?.substring(0, 3)}
                       </Typography>
                     </Paper>
                     <CardContent
