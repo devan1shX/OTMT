@@ -203,8 +203,8 @@ const ContactPage = () => {
               display: "flex",
               flexDirection: "column",
             }}
-          >
-            <Paper
+            >
+{/*         <Paper
               elevation={0}
               sx={{
                 p: 4,
@@ -314,7 +314,8 @@ const ContactPage = () => {
                   </Grid>
                 </Grid>
               </form>
-            </Paper>
+            </Paper> */}
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfWa9xf_pqsM5y98GOf72nPgW1eLh_oeFBe5NHmCH58aqIuvw/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
           </Box>
 
           <Box
