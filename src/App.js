@@ -18,12 +18,12 @@ import StudentResourcesPage from './pages/Resources/Student/page';
 import OurResearchPage from './pages/Technology/Our_research/page';
 import ExploreTechnologiesPage from './pages/Technology/Explore/page';
 import TechDetail from './pages/Technology/TechDetail/TechDetail';
+import NotFoundPage from './pages/NotFound/NotFoundPage';
 
 function App() {
 
   return (
       <Router>
-        {/* Global header appears on every page */}
         <SiteHeader />
         
         <Routes>
@@ -49,11 +49,10 @@ function App() {
           <Route path="/Explore_Technologies" element={<ExploreTechnologiesPage />} />
           <Route path="/tech/:id" element={<TechDetail />} />
 
-      
+          <Route path="*" element={<NotFoundPage />} />
           
         </Routes>
 
-        {/* Global footer appears on every page */}
         <SiteFooter />
       </Router>
   );
