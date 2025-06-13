@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SiteHeader from './components/header/component';
 import SiteFooter from './components/footer/component';
+import ChatComponent from './components/chatWindow/chatWindow';
 import './App.css';
 
 import HomePage from './pages/page';
@@ -52,7 +53,8 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
           
         </Routes>
-
+        <ChatComponent />
+        {/* Footer */}
         <SiteFooter />
       </Router>
   );
