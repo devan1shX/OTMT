@@ -88,7 +88,7 @@ const ChatComponent = () => {
     setMessages((prev) => [...prev, botMessage]);
 
     try {
-      const response = await fetch("http://otmt.iiitd.edu.in/chatbot/chat", {
+      const response = await fetch("http://otmt.iiitd.edu.in/chatbot/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
