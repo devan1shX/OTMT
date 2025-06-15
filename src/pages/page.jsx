@@ -946,28 +946,28 @@ const highlights = [
     description:
       "Comprehensive innovation support services for researchers and entrepreneurs.",
     image: logo1,
-    href: "https://otmt.iiitd.edu.in/data/brochures/Seek_Suspect.pdf",
+    href: "https://otmt.iiitd.edu.in/data/brochures/1749953793590-Seek_Suspect.pdf",
   },
   {
     title: "Cloud Labs",
     description:
       "Advanced cloud computing solutions enabling cutting-edge research capabilities.",
     image: logo2,
-    href: "https://otmt.iiitd.edu.in/data/brochures/Cloud_Labs.pdf",
+    href: "https://otmt.iiitd.edu.in/data/brochures/1749888816280-Cloud_Labs.pdf",
   },
   {
     title: "TATDC",
     description:
       "Collaborative research platform connecting academia and industry for breakthrough innovations.",
     image: logo3,
-    href: "https://otmt.iiitd.edu.in/data/brochures/TATDC.pdf",
+    href: "https://otmt.iiitd.edu.in/data/brochures/1749954077535-TATDC.pdf",
   },
   {
     title: "FOODLE",
     description:
       "Revolutionary food technology innovation addressing global sustainability challenges.",
     image: logo4,
-    href: "https://otmt.iiitd.edu.in/data/brochures/Foodle.pdf",
+    href: "https://otmt.iiitd.edu.in/data/brochures/1749953654190-Foodle.pdf",
   },
 ];
 
