@@ -1,8 +1,11 @@
-import { Box, Container, Grid, Typography, Link, IconButton, Divider } from "@mui/material"
+import { Box, Container, Grid, Typography, Link, IconButton, Divider, Button } from "@mui/material"
 import FacebookIcon from "@mui/icons-material/Facebook"
 import TwitterIcon from "@mui/icons-material/Twitter"
+import AndroidIcon from '@mui/icons-material/Android';
 import LinkedInIcon from "@mui/icons-material/LinkedIn"
+import AppLink from "../../assets/OTMT-v3.1-app.apk"
 import "./component.css"
+import { PlayIcon } from "lucide-react"
 
 function SiteFooter() {
   return (
@@ -61,6 +64,13 @@ function SiteFooter() {
                 <LinkedInIcon />
               </IconButton>
             </Box>
+            <br />
+            <a href={AppLink} download style={{ textDecoration: "none" }}>
+              <Button variant="contained" className="contained schedule-button">
+                <AndroidIcon style={{ marginRight: "0.5rem" }} />
+                Download App
+              </Button>
+            </a>
           </Grid>
         </Grid>
       <Divider />
@@ -70,8 +80,10 @@ function SiteFooter() {
             © 2025 Technology Management Office. All rights reserved.
           </Typography>
           <Box className="bottom-links">
-            <Link href="#">Privacy Policy</Link>
-            <Link href="#">Terms of Service</Link>
+            {/* Developed by: <Link href="#">Amartya Singh</Link> and <Link href="#">Anish</Link> */}
+            <Typography variant="body2" className="copyright">
+              Developed by: <Link style={{ color: "#009494" }} href="https://github.com/Beingstupid4me">Amartya Singh</Link> and <Link style={{ color: "#009494" }} href="https://github.com/devan1shX">Anish</Link> 😊
+            </Typography>
           </Box>
         </Box>
       </Container>
