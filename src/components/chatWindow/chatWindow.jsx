@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import ReactMarkdown from "react-markdown"; 
 import { 
   Send, 
   Bot, 
@@ -215,7 +216,7 @@ const ChatComponent = () => {
                   {message.sender === "user" ? <User size={16} /> : <Bot size={16} />}
                 </div>
                 <div className={`message-content ${message.sender === "user" ? "content-user" : "content-bot"}`}>
-                  {message.content}
+                  <ReactMarkdown>{message.content}</ReactMarkdown>
                   {message.isStreaming && <span className="streaming-cursor" />}
                 </div>
               </div>
