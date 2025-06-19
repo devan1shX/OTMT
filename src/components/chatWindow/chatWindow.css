@@ -146,9 +146,39 @@
   border-radius: 0.5rem;
   padding: 0.75rem;
   font-size: 0.875rem;
-  white-space: pre-wrap;
+  /* white-space: pre-wrap; <-- REMOVED THIS LINE */
   word-wrap: break-word;
+  line-height: 1.5; /* Added for better text spacing */
 }
+
+/* --- Markdown Content Styling --- */
+
+/* Fix paragraph margins created by react-markdown */
+.message-content p {
+  margin: 0;
+}
+.message-content p:not(:last-child) {
+  margin-bottom: 0.75rem; /* Add space between paragraphs */
+}
+
+/* Style for lists (<ul> and <ol>) */
+.message-content ul,
+.message-content ol {
+  padding-left: 1.25rem; /* Indentation for list items */
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Spacing for individual list items */
+.message-content li {
+  margin-bottom: 0.25rem;
+}
+
+/* Ensure bold text is properly weighted */
+.message-content strong {
+  font-weight: 600;
+}
+
 
 .content-user {
   background-color: #f0f9f9;
