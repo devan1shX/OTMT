@@ -967,7 +967,7 @@ const highlights = [
     description:
       "Revolutionary food technology innovation addressing global sustainability challenges.",
     image: logo4,
-    href: "https://otmt.iiitd.edu.in/data/brochures/1749953654190-Foodle.pdf",
+    href: "https://otmt.iiitd.edu.in/data/brochures/1752146504577-Foodle.pdf",
   },
 ];
 
