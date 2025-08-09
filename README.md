@@ -165,8 +165,8 @@ graph LR
 
 ```bash
 # Clone the repository
-git clone https://github.com/devan1shX/TMTO.git
-cd TMTO
+git clone https://github.com/devan1shX/OTMT.git
+cd OTMT
 
 # Install dependencies
 npm install --force
@@ -230,7 +230,7 @@ npm run lint
 ## 📁 Project Structure
 
 ```
-TMTO/
+OTMT/
 ├── public/                 # Static assets
 │   ├── index.html
 │   └── favicon.ico
@@ -314,7 +314,7 @@ const apiService = {
 This frontend is part of a larger ecosystem. Related repositories:
 
 - **[Admin Frontend](https://github.com/devan1shX/Admin-Frontend)** - User/Admin portal for content management
-- **[General Backend](https://github.com/devan1shX/TMTO-Backend)** - Read-only API service
+- **[General Backend](https://github.com/devan1shX/OTMT-Backend)** - Read-only API service
 - **[Admin Backend](https://github.com/devan1shX/Admin-Backend)** - Write-enabled API for admin operations
 - **[Mobile App](https://github.com/devan1shX/OTMT-App)** - Native Android application
 - **[Chatbot Service](https://github.com/Beingstupid4me/Tech-Transfer-Pal)** - AI-powered assistance
