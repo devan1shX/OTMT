@@ -83,29 +83,72 @@ The OTMT Main Website serves as the primary public-facing interface for the Offi
 ## 🏗 Architecture
 
 ### Frontend Architecture
+
+```mermaid
+graph TB
+    A[OTMT Frontend] --> B[Components Layer]
+    A --> C[Services Layer]
+    A --> D[Assets & Styling]
+    
+    B --> E[Pages<br/>Home, Tech, Events]
+    B --> F[Shared Components<br/>Header, Footer, Nav]
+    B --> G[Tech Finder Module]
+    B --> H[Chatbot Integration]
+    
+    C --> I[API Service<br/>Axios]
+    C --> J[Data Processing]
+    C --> K[Utility Functions]
+    
+    D --> L[Custom CSS]
+    D --> M[Images & Media]
+    D --> N[MUI Theme Config]
+    
+    style A fill:#1976d2,stroke:#fff,stroke-width:2px,color:#fff
+    style B fill:#42a5f5,stroke:#fff,stroke-width:2px,color:#fff
+    style C fill:#66bb6a,stroke:#fff,stroke-width:2px,color:#fff
+    style D fill:#ff7043,stroke:#fff,stroke-width:2px,color:#fff
 ```
-┌─────────────────────────────────────┐
-│           OTMT Frontend             │
-├─────────────────────────────────────┤
-│  Components                         │
-│  ├── Pages (Home, Tech, Events)     │
-│  ├── Shared (Header, Footer, Nav)   │
-│  ├── Tech Finder Module             │
-│  └── Chatbot Integration            │
-├─────────────────────────────────────┤
-│  Services                           │
-│  ├── API Service (Axios)            │
-│  ├── Data Processing               │
-│  └── Utility Functions             │
-├─────────────────────────────────────┤
-│  Assets & Styling                   │
-│  ├── Custom CSS                     │
-│  ├── Images & Media                 │
-│  └── MUI Theme Configuration        │
-└─────────────────────────────────────┘
+
+**Alternative Text-Based Structure:**
+```
+OTMT Frontend
+├── 📱 Components/
+│   ├── Pages (Home, Technologies, Events, Research)
+│   ├── Shared (Header, Footer, Navigation)
+│   ├── Tech Finder Module
+│   └── Chatbot Integration
+├── 🔧 Services/
+│   ├── API Service (Axios)
+│   ├── Data Processing
+│   └── Utility Functions
+└── 🎨 Assets & Styling/
+    ├── Custom CSS
+    ├── Images & Media
+    └── MUI Theme Configuration
 ```
 
 ### Data Flow
+
+```mermaid
+graph LR
+    A[Public Website] --> B[General Backend<br/>Read-Only API]
+    C[Mobile App] --> B
+    D[Chatbot Service] --> B
+    B --> E[(MongoDB<br/>Database)]
+    
+    F[Admin Portal] --> G[Admin Backend<br/>Write-Enabled]
+    G --> E
+    
+    style A fill:#2196f3,stroke:#fff,stroke-width:2px,color:#fff
+    style C fill:#4caf50,stroke:#fff,stroke-width:2px,color:#fff
+    style D fill:#ff9800,stroke:#fff,stroke-width:2px,color:#fff
+    style F fill:#9c27b0,stroke:#fff,stroke-width:2px,color:#fff
+    style B fill:#1976d2,stroke:#fff,stroke-width:2px,color:#fff
+    style G fill:#d32f2f,stroke:#fff,stroke-width:2px,color:#fff
+    style E fill:#795548,stroke:#fff,stroke-width:2px,color:#fff
+```
+
+**Data Flow Process:**
 1. **API Consumption**: Fetches data from General Backend (Read-only)
 2. **State Management**: React hooks for component state
 3. **Routing**: Client-side routing for SPA experience
