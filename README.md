@@ -86,7 +86,7 @@ The OTMT Main Website serves as the primary public-facing interface for the Offi
 
 ```mermaid
 graph TB
-    A[OTMT Frontend] --> B[Components Layer]
+    A[TMTO Frontend] --> B[Components Layer]
     A --> C[Services Layer]
     A --> D[Assets & Styling]
     
@@ -111,7 +111,7 @@ graph TB
 
 **Alternative Text-Based Structure:**
 ```
-OTMT Frontend
+TMTO Frontend
 ├── 📱 Components/
 │   ├── Pages (Home, Technologies, Events, Research)
 │   ├── Shared (Header, Footer, Navigation)
@@ -165,8 +165,8 @@ graph LR
 
 ```bash
 # Clone the repository
-git clone https://github.com/devan1shX/OTMT.git
-cd OTMT
+git clone https://github.com/devan1shX/TMTO.git
+cd TMTO
 
 # Install dependencies
 npm install --force
@@ -230,7 +230,7 @@ npm run lint
 ## 📁 Project Structure
 
 ```
-OTMT/
+TMTO/
 ├── public/                 # Static assets
 │   ├── index.html
 │   └── favicon.ico
@@ -314,7 +314,7 @@ const apiService = {
 This frontend is part of a larger ecosystem. Related repositories:
 
 - **[Admin Frontend](https://github.com/devan1shX/Admin-Frontend)** - User/Admin portal for content management
-- **[General Backend](https://github.com/devan1shX/OTMT-Backend)** - Read-only API service
+- **[General Backend](https://github.com/devan1shX/TMTO-Backend)** - Read-only API service
 - **[Admin Backend](https://github.com/devan1shX/Admin-Backend)** - Write-enabled API for admin operations
 - **[Mobile App](https://github.com/devan1shX/OTMT-App)** - Native Android application
 - **[Chatbot Service](https://github.com/Beingstupid4me/Tech-Transfer-Pal)** - AI-powered assistance
@@ -324,8 +324,6 @@ This frontend is part of a larger ecosystem. Related repositories:
 
 ### Full Project Documentation
 - **[Complete Technical Report](./docs/OTMT_final_Report.pdf)** - Comprehensive project documentation
-- **[Architecture Overview](./docs/architecture.md)** - System design and workflows
-- **[Deployment Guide](./docs/deployment.md)** - Production deployment instructions
 
 ### API Documentation
 - Refer to backend repositories for detailed API documentation
